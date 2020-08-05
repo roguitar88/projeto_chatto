@@ -1,0 +1,978 @@
+@charset "utf-8";
+/* CSS Document */
+@-ms-viewport {
+    width: device-width;
+}
+
+/*
+Basic colors:
+#403340
+#f500ff
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    /* [disabled]box-sizing: border-box; */
+}
+
+/*
+-webkit-box-shadow: 0 0 15px 0 rgba(0,0,0,.45);
+-moz-box-shadow: 0 0 15px 0 rgba(0,0,0,.45);
+-o-box-shadow: 0 0 15px 0 rgba(0,0,0,.45);
+box-shadow: 0 0 15px 0 rgba(0,0,0,.45);
+*/
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    background: none;
+    font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+    /*overscroll-behavior-y: none;*/
+}
+
+.mainwrapper {
+    width: 100%;
+    min-height: 100%;
+    overflow: auto;
+    position: relative;
+    margin: auto;
+    border:0px solid black;
+}
+
+/*
+.logo {
+    width: 20%;
+    height: auto;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    position: relative;
+    float: left;
+    white-space: nowrap;
+}
+
+.logo span {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.logo span img {
+    width: 100%;
+    height: auto;
+    margin-top: 3%;
+    position: relative;
+    vertical-align: middle;
+}
+
+.nav {
+    width: 60%;
+    height: auto;
+    line-height: 2;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    position: relative;
+    float: left;
+    line-height: 5;
+}
+
+.nav ul {
+    display: block;
+    position: relative;
+    list-style-type: none;
+    font-size: 90%;
+    color: black;
+}
+
+.contato {
+    width: 20%;
+    height: auto;
+    line-height: 2;
+    padding-top: 0%;
+    padding-bottom: 1%;
+    position: relative;
+    float: left;
+    color: white;
+    line-height: 3;
+    font-size: 120%;
+}
+
+.contato a {
+    text-decoration: none;
+    color: white;
+}
+
+.contato a:hover {
+    text-decoration: none;
+    color: white;
+}
+*/
+
+.section1 {
+    width: 80%;
+    min-width:330px;
+    height: auto;
+    position: relative;
+    overflow: auto;
+    margin:auto;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 3%;
+    padding-bottom: 50px;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.section2 {
+    width: 100%;
+    height: auto;
+    position: relative;
+    overflow: auto;
+    padding-left: 35%;
+    padding-right: 35%;
+    padding-top: 4%;
+    padding-bottom: 50px;
+    /*background: rgb(110,106,102);*/
+    /*background-image: url("../images/66e2a70180404b47a66ebed738b09417.jpg");*/
+    /*background-image: linear-gradient(150deg, rgba(110, 106, 102, .5) 0%, rgba(110, 106, 102, .75) 100%), url("../images/66e2a70180404b47a66ebed738b09417.jpg");*/
+    /*background-position:  0 20%*/
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+textarea {
+    resize: none;
+}
+
+/*
+.footer {
+    width: 100%;
+    height: auto;
+    background-color: black;
+    text-align: left;
+    padding-left:0;
+    font-size: 100%;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 5px;
+}
+
+.footer a, .footer a:hover {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+*/
+
+/*
+#nav-ul{
+    list-style-type: none;
+    display: block;
+    font-size: 80%;
+    position: relative;
+}
+
+#nav-ul li{
+    display: inline;
+    margin-left:4%;
+}
+
+#nav-ul li a{
+    color: black;
+}
+
+#nav-ul li a:hover{
+    text-decoration: none;
+    color:grey;
+}
+*/
+
+.cust-btn{
+    background-color: transparent;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    color:grey;
+    margin-top: 0px;
+    margin-left: 0px;
+    position: relative;
+}
+
+.cust-btn:focus{
+    outline:none;
+}
+
+.cust-btn:hover{
+    color:black;
+}
+
+#uploadButton{
+    border: 0;
+}
+
+#uploadButton:focus{
+    outline:none;
+}
+
+.uploadButtonDiv{
+    position: relative;
+}
+
+#preview{
+    position: relative;
+    width:auto;
+    border:0px solid black;
+}
+
+.uploadpics{
+    margin-left:20px;
+}
+
+/*
+input[type="file"] {
+display: block;
+}
+*/
+/*
+.imageThumb {
+    max-height: 100px;
+    border: 0px solid;
+    padding: 1px;
+    cursor: pointer;
+}
+*/
+
+.myads{
+    width: 100%;
+    padding-top:150px;
+    padding-left:10%;
+    padding-right:10%;
+    border-bottom: .5px solid #ccc;
+    position: relative;
+}
+
+header > .navbar {
+    background-color: #478166;
+}
+
+.navbar-brand{
+    position:relative;
+    width:75%;
+    min-width: 200px;
+    padding-left:20px;
+}
+
+.navbar-toggler{
+    position:relative;
+}
+
+.navbar-toggler:focus{
+    outline:none;
+}
+
+/*
+.divnav{
+    text-align: center;
+    width:100%;
+    height:auto;
+    padding: 20px 10% 30px 10%;
+    background-color:white;
+    margin:auto;
+    border-bottom: .5px solid #ccc;
+}
+*/
+
+.ad_button{
+    padding: 0px 25px 0px 25px;
+    background: #f500ff;
+    color:white;
+    font-weight: bolder;
+    font-size:80%;
+    border: 0;
+    border-radius: 30px 30px 30px 30px;
+}
+
+.ad_button:hover{
+    background: #f770fd;
+}
+
+.ad_button:focus{
+    outline:none;
+}
+
+nav{
+    border-bottom: .5px solid #ccc;
+}
+
+.navbar-nav > li{
+    padding-left:25px;
+    background-color: none;
+    /*
+    list-style-type: none;
+    */
+}
+
+/*
+.navbar-nav > li:first-child{
+    padding-right: 50px;
+}
+*/
+
+.navbar-nav .nav-link {
+    padding-top: 0;
+    padding-bottom: 0;
+    height: 50px;
+    line-height: 50px;
+    font-size:80%;
+    /*
+    text-decoration: none;
+    color: grey;
+    font-size: 95%;
+    */
+}
+
+#img{
+    width:100%;
+    height:auto;
+    margin-top: -20px;
+    position:relative;
+}
+
+#dropdownmenuid{
+    font-size: 80%;
+    position: absolute;
+    top: 0;
+    left: 72%;
+    margin-top: 60px;
+    /*margin-left: -1px;*/
+    -webkit-border-radius: 0 6px 6px 6px;
+    -moz-border-radius: 0 6px 6px;
+    border-radius: 0 6px 6px 6px;
+}
+
+#dropdownmenuid:hover{
+    display:block;
+}
+
+#dropdownmenuid li{
+    padding: 10px 20px 10px 20px;
+}
+
+#dropdownmenuid li:hover{
+    background-color: whitesmoke;
+}
+
+#dropdownmenuid li a{
+    text-decoration:none;
+    color:grey;
+}
+
+#dropdownmenuid li a:hover{
+    color:black;
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+.footerlinks{
+    font-size:90%;
+}
+
+.footerlinks li{
+    margin-right:20px;
+}
+
+.footerlinks li a{
+    color:black;
+    text-decoration:none;
+}
+
+.footerlinks li a:hover{
+    text-decoration: none;
+    color:grey;
+}
+
+.socialicons{
+    font-size:100%;
+}
+
+.socialicons li{
+    padding-right: 30px;
+}
+
+.socialicons li a{
+    color:grey;
+    text-decoration:none;
+}
+
+.socialicons li a:hover{
+    text-decoration: none;
+    color:black;
+}
+
+/* This is for the modal */
+div.modal-fundo{
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: black;
+	opacity: 0.4;
+	display: none;
+	z-index: 150;
+}
+
+div.modal-meio{
+	width: 100%;
+	position: fixed;
+	top: 50px;
+    display: none;
+    z-index: 200;
+}
+
+div.modal-erro{
+    width: 40%;
+    min-width: 300px;
+	padding-bottom: 10px;
+	margin: 0 auto;
+    background-color: white; /* #D8D8D8;*/
+    border-radius: 20px 20px 20px 20px;
+    margin: 0 auto;
+    transition: all 3s;
+}
+
+div.modal-erro2 {
+    overflow:hidden;
+    transition:transform 19s ease-out; /* note that we're transitioning transform, not height! */
+    height:auto;
+    transform:scaleY(1); /* implicit, but good to specify explicitly */
+    transform-origin:top; /* keep the top of the element in the same place. this is optional. */
+}
+
+div.modal-head{
+	width: 100%;
+	height: 50px;
+    background-color: #E02041;
+    border-radius: 20px 20px 0 0;
+    text-align: center;
+    color:white;
+}
+
+span#fechar-modal{
+	float: right;
+	position: relative;
+	right: 10px;
+	top: -5px;
+	cursor: pointer;
+}
+
+span#fechar-modal:hover{
+    color:#ccc;
+}
+
+div.modal-head h2{
+	margin-left: 10px;
+	line-height: 50px;
+	font-size: 26px;
+}
+
+div.modal-body{
+	width: 90%;
+	margin: 0 auto;
+}
+
+div.modal-body h3{
+	position: relative;
+	top: 0px;
+	font-size: 25px;
+}
+
+div.modal-body ul li{
+    font-size: 90%;
+    color:red;
+    list-style-type: none;
+}
+
+/* Footer */
+/* Wrapper for page content to Push down footer */
+main {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by it's height */
+    margin: 0 auto -250px;
+}
+
+/* Set the fixed height of the footer here */
+#Push,
+#footer {
+    height: 250px;
+}
+
+/*
+#footer {
+    background-color: #f5f5f5;
+}
+*/
+
+/* Lastly, apply responsive CSS fixes as necessary */
+/*
+@media (max-width: 767px) {
+    #footer {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+*/
+
+#footer2 {
+    width: 100%;
+    height: auto;
+    background-color: black;
+    text-align: left;
+    padding-top:20px;
+    padding-bottom:20px;
+    font-size: 100%;
+    color: white;
+}
+
+#footer2 a, #footer2 a:hover {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#switch-ad-link2{
+    display: none;
+
+}
+
+@media (max-width: 750px) {
+    #switch-ad-link {
+        display:none;
+    }
+    
+    #switch-ad-link2{
+        display:block;
+    }
+
+    #dropdownmenuid{
+        position:relative;
+        left:20px;
+        top:-60px;
+        width:200px;
+    }
+
+    .hidelink{
+        display:none;
+    }
+}
+
+@media only screen and (min-width: 550px) and (max-width: 1280px){
+    .linktext{
+        display:none;
+    }
+}
+
+/* This is for the switching tab contents */
+.ad-tabs{
+    /*color:grey;*/
+    font-size:100%;
+    font-style: italic;
+    margin-bottom:0;
+}
+
+/*
+.ad-tabs li:hover{
+    border-bottom: 3px solid #E02041;
+}
+*/
+
+.ad-tabs li a{
+    text-decoration:none;
+    color:grey;
+}
+
+.ad-tabs li a:hover{
+    color: #f500ff;
+}
+
+.adlinks{
+    margin-right:40px;
+    padding-bottom:10px;
+}
+
+.nav-tab-active {
+    color: #403340;
+    border-bottom:4px solid #403340;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.adstable{
+    width: 100%;
+    max-width:100%;
+    display:inline-block;
+    position:relative;
+    margin-bottom:20px;
+}
+
+.adstable div{
+    float:left;
+    position:relative;
+    width:auto;
+}
+
+.adstable div:first-child{
+    width: auto;
+    position:relative;
+}
+
+.adstable div:nth-child(2){
+    padding-left:10px;
+    position:relative;
+}
+
+.adsbutton{
+    background:transparent;
+    border:2px solid #f500ff;
+    padding:5px 20px;   
+    border-radius:20px;
+    color: #f500ff;
+    font-size: 80%;
+    width:90%;
+    margin-bottom:10px;
+}
+
+.adsbutton:focus{
+    outline: none;
+}
+
+.customletter{
+    color: #f500ff;
+    font-weight: bolder;
+}
+
+.carousel{
+    width: 100%;
+    height:200px;
+    position:relative;
+}
+
+.carousel-ads{
+    width:100%;
+    height:auto;
+    float:left;
+    position: relative;
+}
+
+.carousel-img{
+    width: 100%;
+    height:120px;
+    border:1px solid #ccc;
+    border-radius: 5px;
+    position:relative;
+}
+
+.sponsored{
+    width: 100%;
+    height:200px;
+    position:relative;
+}
+
+.sponsored-ads{
+    width:30%;
+    height:auto;
+    float:left;
+    position: relative;
+    border:1px solid #ccc;
+    border-radius: 5px;
+    padding:5px;
+    margin-right:10px;
+}
+
+.sponsored-img{
+    width: 90%;
+    height:150px;
+    border-radius: 5px;
+    position:relative;
+    margin:auto;
+}
+
+.pricetag{
+    width: 300px;
+    height:auto;
+    padding:0;
+}
+
+.pricetag-main{
+    background:purple;
+    color:white;
+    font-size:200%;
+    border-radius:30px 0 0 30px;
+    padding:7px 125px 7px 35px;
+    border:none;
+    margin-bottom:12px;
+}
+
+.pricetag-main:focus{
+    outline:focus;
+}
+
+.chatbutton{
+    background:orange;
+    color:white;
+    padding:10px 40px 10px 40px;
+    width:90%;
+    border:none;
+    border-radius:20px;
+    margin-bottom:10px;
+}
+
+.chatbutton:focus{
+    outline: none;
+}
+
+.seller-details{
+    width:300px;
+    z-index:200;
+    background:whitesmoke;
+    padding:20px;
+    text-align:center;
+    border:.5px solid #ccc;
+    border-radius:4px;
+}
+
+#chat {
+    position: fixed;
+    right: 40px;
+    bottom: 0;
+    background:white;
+    z-index:220;
+    border:1px solid #ccc;
+    border-radius:5px 5px 0 0;
+    width:340px;
+    display:none;
+ }
+
+#chat-header{
+    position:relative;
+    border-radius:5px 5px 0 0;
+    height:40px;
+    padding:10px 20px 10px 20px;
+    border-bottom:1px solid #ccc;
+}
+
+#chat-close{
+    right:20px;
+    position:absolute;  
+    font-size:140%;
+    font-weight:bolder;
+    top:3px;
+    cursor:pointer; 
+}
+
+#chat-window {
+    height: 320px;
+    /*overflow-y: scroll;*/
+    /*overflow-x: hidden;*/
+    border-bottom:1px solid #ccc;
+    margin-bottom:10px;
+}
+
+#logs{
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height:319px;
+    border:0px solid whitesmoke;
+    position:relative;
+    font-size:75%;
+    padding:10px 10px 0 10px;
+    /*overflow: auto;*/
+    /*overscroll-behavior-y: contain;*/
+    transform: rotate(180deg);
+    direction: rtl;
+    background-image: url("../images/chat-background.png");
+    background-size: cover;
+    /*
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    */
+}
+
+.rightmsg{
+    background-color:purple;
+    color:white;
+    padding:10px 10px 10px 20px;
+    width:200px;
+    position:relative;
+    float:left;
+    display:block;
+    overflow-wrap: break-word;
+    /*word-break: break-all;*/
+    /*margin-right:0;*/
+    border-radius:20px 0 20px 20px;
+    margin-bottom:10px;
+}
+
+.leftmsg{
+    background-color:grey;
+    color:white;
+    padding:10px 10px 10px 20px;
+    width:200px;
+    position:relative;
+    float:right;
+    display:block;
+    overflow-wrap: break-word;
+    /*word-break: break-all;*/
+    /*margin-left:0;*/
+    border-radius:0 20px 20px 20px;
+    margin-bottom:10px;
+}
+
+.rightmsg, .leftmsg{
+    transform: rotate(180deg);
+    direction: ltr;
+}
+
+#message1{
+    width:200px;
+    border:0px solid #ccc;
+    height:40px;
+    border-radius:2px;
+    position:relative;
+    padding:2px 10px;
+    float:left;
+    margin-left:10px;
+    margin-right:10px;
+    margin-bottom:10px;
+    resize: none;
+}
+
+#message1:focus{
+    outline: none;
+}
+
+button#send{
+    width:50px;
+    border:0;
+    background:transparent;
+    float:left;
+}
+
+button#send:focus{
+    outline:none;
+}
+
+.btn:focus{
+    outline:none;
+}
+
+/* jQuery slides for the images */
+.container2{
+	width:540px;
+	margin:0 auto;
+	overflow:auto;
+}
+
+.slider-inner{
+	width:500px;
+	height:auto;
+	position:relative;
+	overflow:hidden;
+	float:left;
+	padding:0;
+	border:#666 solid 0px;
+}
+
+.slider-inner img{
+    display:none;
+    width:auto;
+    max-width:100%; 
+    height:500px; 
+    border:.5px solid #ccc; 
+    border-radius: 5px;
+    margin:auto;
+	/*width:500px;
+	height:300px;*/
+}
+
+.slider-inner img.active{
+	display:inline-block;
+}
+
+.prev,.next{
+	float:left;
+	margin-top:220px;
+    cursor: pointer;
+    z-index:120;
+}
+
+.prev{
+	position:relative;
+    margin-right:-45px;
+}
+
+.next{
+	position:relative;
+	margin-left:-45px;
+}
+
+/* This is for the ads slider */
+
+.slider {
+    width: 100%;
+    margin-left: 20px auto;
+    margin-right: 20px auto;
+}
+
+.slick-slide {
+    margin: 0px 10px;
+}
+
+.slick-slide img {
+    width: 100%;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: black;
+}
+
+
+.slick-slide {
+    transition: all ease-in-out .3s;
+    /*opacity: .2;*/
+}
+
+/*
+.slick-active {
+    opacity: .5;
+}
+
+.slick-current {
+    opacity: 1;
+}
+*/

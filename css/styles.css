@@ -1,0 +1,32 @@
+#usuarios{
+    position: fixed;
+    left: 40px;
+    bottom: 10px;
+    background:white;
+    z-index:120;
+    border:1px solid #ccc;
+    border-radius:5px 5px 0 0;
+    width:340px;
+ }
+
+#users{
+    height:290px;
+    border:1px solid whitesmoke;
+}
+
+div.item-user{
+	cursor: pointer;
+	height: 50px;
+	width: 100%;
+	line-height: 50px;
+	border: 1px solid;
+}
+
+div.item-user p{
+	font-size: 17px;
+	margin-left: 10px;
+}
+
+#logs{
+    overflow: auto;
+}
