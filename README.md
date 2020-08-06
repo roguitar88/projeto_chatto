@@ -1,4 +1,4 @@
-# projeto_chatto
+# Projeto ChatTo
 Sistema de chat em PHP, Javascript e Websocket
 
 - Na pasta /bd você vai encontrar o banco de dados
