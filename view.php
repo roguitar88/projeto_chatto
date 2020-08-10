@@ -84,7 +84,7 @@ $session = mt_rand(1,999);
 		
 		<div id="chat">
             <div id="chat-header">
-                <?php echo $a->getAdvertiser(); ?>
+                <div id="header-name"><?php //echo $a->getAdvertiser(); ?></div>
                 <span id="chat-close">&times;</span>
             </div>
             <input type="hidden" name="user-from" id="user-from" value="<?php echo($u->getId()); ?>">

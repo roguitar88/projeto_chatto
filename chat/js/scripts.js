@@ -31,7 +31,7 @@ jQuery(function($){
                     
                     outro_digitando = false;
                     
-                    chatHeader.innerHTML = escolhido.username+"<span id='chat-close'>&times;</span>";
+                    chatHeader.innerHTML = escolhido.username;
 					
                     //$('#logs').append(json.msg);
                     $(json.msg).prependTo('#logs');
@@ -111,7 +111,7 @@ const username = document.querySelector('#username');
 const userFrom = document.querySelector('#user-from');
 const usernameto = document.querySelector('#usernameto');
 const userTo = document.querySelector('#user-to');
-const chatHeader = document.querySelector('#chat-header');
+const chatHeader = document.querySelector('#header-name');
 const logs = document.querySelector('#logs');
 
 var eu_tempo_digitando = 0;
@@ -172,7 +172,7 @@ function carregaUsuarios(){
                         
                         userTo.value = escolhido.id;
                         
-                        //chatHeader.innerHTML = escolhido.username+"<span id='chat-close'>&times;</span>";
+                        chatHeader.innerHTML = escolhido.username;
                         
                         carregaMensagens(escolhido.username);
                         
@@ -374,7 +374,7 @@ function to_digitando(){
 			
 			if(outro_tempo_digitando >= limit_outro){
 				
-				chatHeader.innerHTML = escolhido.username+"<span id='chat-close'>&times;</span>";
+				chatHeader.innerHTML = escolhido.username;
 			
 				outro_digitando = false;
 				
@@ -390,13 +390,13 @@ function to_digitando(){
 	
 				if(outro_tempo_digitando == 0){
 		
-					chatHeader.innerHTML = escolhido.username+" está digitando<span id='chat-close'>&times;</span>";
+					chatHeader.innerHTML = escolhido.username+" está digitando";
 	
 				}else if(outro_tempo_digitando <= limit_outro){
 		
 					if(pontos >= 3){
 						
-						chatHeader.innerHTML = escolhido.username+" está digitando<span id='chat-close'>&times;</span>";
+						chatHeader.innerHTML = escolhido.username+" está digitando";
 						
 						pontos = 0;
 						
@@ -409,8 +409,6 @@ function to_digitando(){
 							html += '.';
 						
 						}
-
-						html += "<span id='chat-close'>&times;</span>";
 						
 						chatHeader.innerHTML = html;
 						
