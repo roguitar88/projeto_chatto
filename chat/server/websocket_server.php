@@ -72,7 +72,30 @@ class Chat implements MessageComponentInterface {
 						$client->send(json_encode(array("type"=>$type, "from" => $username_from, "msg"=>$response_to)));
 					}
 				}
-				break;
+				
+			break;
+			
+			case 'digitando':
+			
+				$user_from = $data->user_from;
+				$user_to = $data->user_to;
+				$username_from = $data->username_from;
+				$username_to = $data->username_to;
+				
+				echo("\n{$username_from} está digitando uma mensagem para {$username_to}");
+				
+				// Output
+				
+				foreach($this->clients as $client)
+				{
+					if($from!=$client && $client->resourceId == $user_to)
+					{
+						$client->send(json_encode(array("type"=>$type, "from" => $username_from, "to" => $username_to)));
+					}
+				}
+				
+			break;
+
 		}
 	}
 
