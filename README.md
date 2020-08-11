@@ -38,4 +38,4 @@ kill -9 id_do_processo
 
 ### ***Implementado por [@roguitar88](https://github.com/roguitar88) e [@rodriguesrenato61](https://github.com/rodriguesrenato61)***
 
-### Qualquer bronca, enviar email para rogeriobsoares5@gmail.com ou uma mensagem direta para o Whatsapp (62)982570993
+### Qualquer bronca, enviar email para rogeriobsoares5@gmail.com ou uma mensagem direta para o Whatsapp [(62)982570993](http://wa.me/5562982570993)
