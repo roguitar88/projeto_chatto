@@ -14,19 +14,32 @@
 			$dt->setTimestamp($timestamp); //adjust the object to correct timestamp
 			$this->currentLocalTime = $dt->format("Y-m-d H:i:s");	
 
-			$host = "localhost";
-			$dbname = "banana_nanica";
-			$user = "root";
-			$password = "";
-			
 			try{
-			
+				//This is the config of the localhost
+				$host = "localhost";
+				$dbname = "banana_nanica";
+				$user = "root";
+				$password = "";
+
 				$this->pdo = new PDO("mysql:host={$host};dbname={$dbname}", $user, $password);
 				
 			}catch(Exception $e){
+				//echo("Erro: {$e->getMessage()}");
+				//Uncomment the code snippet below, if wanna set the remote host configuration for connection with your web server
+				/*
+				try{
+					//This is the config of the remote host
+					$host = "localhost";
+					$dbname = "banana_nanica";
+					$user = "dada";
+					$password = "mariamole";
+
+					$this->pdo = new PDO("mysql:host={$host};dbname={$dbname}", $user, $password);
 				
-				echo("Erro: {$e->getMessage()}");
-				
+				}catch(Exception $e){
+					echo("Erro: {$e->getMessage()}");
+				}
+				*/
 			}
 		}
 		

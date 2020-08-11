@@ -1,6 +1,18 @@
+var locationHost = document.location.host;
+if (locationHost == 'localhost') {
+    //console.log('Localhost');
+    var websocket_server = new WebSocket('ws://localhost:8080');
+    var load_users_path = 'http://localhost/olimppius/chat/load_users.php';
+    var load_messages_path = 'http://localhost/olimppius/chat/load_messages.php';        
+} else {
+    //console.log('Servidor Remoto');
+    var websocket_server = new WebSocket('ws://93.188.161.22:8080');
+    var load_users_path = '../chat/load_users.php';
+    var load_messages_path = '../chat/load_messages.php';
+}
+
 jQuery(function($){
     // Websocket
-    var websocket_server = new WebSocket("ws://localhost:8080/");
     websocket_server.onopen = function(e) {
         websocket_server.send(
             JSON.stringify({
@@ -128,7 +140,7 @@ function carregaUsuarios(){
     
     form.append('usernameto', usernameto.value);
  
-   fetch('http://localhost/projeto_chatto/chat/load_users.php', {
+   fetch(load_users_path, {
       
       method: 'POST',
       body: form
@@ -199,7 +211,7 @@ function carregaMensagens(user){
     form.append('from', username.value);
     form.append('to', user);
  
-    fetch('http://localhost/projeto_chatto/chat/load_messages.php', {
+    fetch(load_messages_path, {
     
         method: 'POST',
         body: form
