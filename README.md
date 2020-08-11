@@ -1,7 +1,7 @@
 # Projeto ChatTo
 ### Sistema de chat em PHP, Javascript e Websocket
 
-- Na pasta /bd você vai encontrar o banco de dados
+- Na pasta /bd você vai encontrar o banco de dados (banana_nanica)
 
 - DICA: Vá até o diretório /chat/server/websocket_server.php, abra o terminal ou cmd e execute a seguinte linha para habilitar o servidor.
 ```
@@ -36,6 +36,6 @@ kill -9 id_do_processo
 - IMPORTANTE: Quanto à configuração da conexão por https, ainda estamos trabalhando para resolver, mas se puder contribuir seremos gratos. Lembrando que para haver compatibilidade com a versão HTTPS de seu site, é necessário substituir o ws por wss em /chat/js/scripts.js, na linha 9. Mesmo assim, a conexão cairá após alguns segundos ou quando se entra com alguma mensagem no chat box, pois é necessário fazer a configuração do SSL do Websocket de acordo com o Certificado SSL do seu site. Trocando em miúdos: Os certificados tanto do Websocket quanto do seu servidor web devem ser os mesmos. Para isso, é necessário alterar alguma coisa dentro de /chat/vendor/cboden/ratchet/. Não tenho certeza.
 
 
-### ***Implementado por @roguitar88 e @rodriguesrenato61***
+### ***Implementado por [@roguitar88](https://github.com/roguitar88) e [@rodriguesrenato61](https://github.com/rodriguesrenato61)***
 
 ### Qualquer bronca, enviar email para rogeriobsoares5@gmail.com ou uma mensagem direta para o Whatsapp (62)982570993
