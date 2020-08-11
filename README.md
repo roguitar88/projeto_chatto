@@ -1,6 +1,8 @@
 # Projeto ChatTo
 ### Sistema de chat em PHP, Javascript e Websocket
 
+- Adaptação do tutorial https://www.youtube.com/watch?v=OHy2zpmsWf8
+
 - Na pasta /bd você vai encontrar o banco de dados (banana_nanica)
 
 - DICA: Vá até o diretório /chat/server/websocket_server.php, abra o terminal ou cmd e execute a seguinte linha para habilitar o servidor.
