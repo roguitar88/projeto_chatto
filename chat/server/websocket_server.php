@@ -130,7 +130,7 @@ class Chat implements MessageComponentInterface {
 }
 $server = IoServer::factory(
 	new HttpServer(new WsServer(new Chat())),
-	8989   //80/443
+	8989   //8989 for https, and 8080 for http
 );
 $server->run();
 ?>
