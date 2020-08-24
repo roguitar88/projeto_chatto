@@ -9,7 +9,7 @@ if (locationHost == 'localhost') {
     if(window.location.protocol == 'http:'){
         var websocket_server = new WebSocket('ws://your-site.com:8080/chat/server');
     }else{
-        var websocket_server = new WebSocket('wss://your-site.com/chat/server');
+        var websocket_server = new WebSocket('wss://your-site.com:8989/chat/server');
     }
     var load_users_path = '../chat/load_users.php';
     var load_messages_path = '../chat/load_messages.php';
