@@ -35,8 +35,100 @@ kill -9 id_do_processo
 - A parte dos tickets de visualização das mensagens
 - Fazer a barra de rolagem rolar automaticamente até o final da div quando qualquer dos usuários entram com nova mensagem, independente de onde está posicionada a barra de rolagem (scroll). Em /chat/js/scripts.js, na linha 98, até tentei fazer algo nesse sentido... Lembrando também que inverti a div #logs de ponta a cabeça no CSS (Vide /css/index.css, a partir da linha 804 que você entenderá melhor)
 - Quanto ao estilo, se você for um bom design poderá bolar um layout pro chat box do jeito que você quiser
-- IMPORTANTE: Quanto à configuração da conexão por https, ainda estamos trabalhando para resolver, mas se puder contribuir seremos gratos. Lembrando que para haver compatibilidade com a versão HTTPS de seu site, é necessário substituir o ws por wss em /chat/js/scripts.js, na linha 9. Mesmo assim, a conexão cairá após alguns segundos ou quando se entra com alguma mensagem no chat box, pois é necessário fazer a configuração do SSL do Websocket de acordo com o Certificado SSL do seu site. Trocando em miúdos: Os certificados tanto do Websocket quanto do seu servidor web devem ser os mesmos. Para isso, é necessário alterar alguma coisa dentro de /chat/vendor/cboden/ratchet/. Não tenho certeza.
+- IMPORTANTE: Quanto à configuração da conexão por https, ainda estamos trabalhando para resolver, mas se puder contribuir seremos gratos. Lembrando que para haver compatibilidade com a versão HTTPS de seu site, é necessário substituir o ws por wss em /chat/js/scripts.js, na linha 9. Mesmo assim, a conexão cairá após alguns segundos ou quando se entra com alguma mensagem no chat box, dando o seguinte erro: "WebSocket connection to 'wss://your-site.com:8989/chat/server/' failed: WebSocket opening handshake timed out". A configuração padrão que geralmente é feita para servidores Nginx é a seguinte:
 
+```
+  map $http_upgrade $connection_upgrade {
+      default upgrade;
+      ''      close;
+  }
+
+  upstream ws-backend {
+      #enable sticky session based on IP
+      ip_hash;
+             
+      server your-site.com:8989;        
+      server 90.138.151.13:8989;             
+      server localhost:8989;            
+      server 127.0.0.1:8989;
+  }
+  
+  server {
+      listen 80 default_server;
+      listen [::]:80 default_server;
+
+      return 301 https://$host$request_uri;
+  }
+
+  server{
+      listen 443 ssl http2;
+      listen [::]:443 ssl http2;
+
+      root /var/www/html;
+      index index.php index.html index.htm;
+
+      server_name your-site.com www.your-site.com;
+
+      #Start the SSL configurations
+      #ssl on;
+      ssl_certificate /etc/pathto/your-site.com/fullchain.pem; # managed by Certbot
+      ssl_certificate_key /etc/pathto/your-site.com/privkey.pem; # managed by Certbot
+      ssl_session_timeout 1d;
+      ssl_session_cache shared:MozSSL:10m;  # about 40000 sessions
+      ssl_session_tickets off;
+
+      #curl https://ssl-config.mozilla.org/ffdhe2048.txt > /path/to/dhparam
+      ssl_dhparam dhparams.pem;
+      
+      ssl_ciphers ECDHE+AESGCM:DHE+AESGCM:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256;
+      #ssl_prefer_server_ciphers off;
+
+      #Diffie Hellmann performance improvements
+      ssl_ecdh_curve              secp384r1;
+
+      #HSTS (ngx_http_headers_module is required) (63072000 seconds)
+      add_header Strict-Transport-Security "max-age=63072000" always;
+
+      #OCSP stapling
+      ssl_stapling on;
+      ssl_stapling_verify on;
+
+      location / {
+          try_files $uri $uri/ =404;
+      }
+
+      location ~ \.php$ {
+          try_files $uri /index.php =404;
+          fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+          fastcgi_index index.php;
+          fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+          include fastcgi_params;
+      }
+
+      location /chat/server {
+          proxy_pass https://ws-backend;
+          proxy_set_header Host               $host;
+          proxy_set_header X-Real-IP          $remote_addr;
+
+          proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;
+          proxy_set_header X-Forwarded-Proto  https;
+          proxy_set_header X-VerifiedViaNginx yes;
+          proxy_read_timeout                  86400;
+          proxy_connect_timeout               60;
+          proxy_redirect                      off;
+
+          #proxy_ssl_certificate /etc/pathto/your-site.com/fullchain.pem;
+          #proxy_ssl_certificate_key /etc/pathto/your-site.com/privkey.pem; 
+
+          #Specific for websockets: force the use of HTTP/1.1 and set the Upgrade header
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection 'upgrade';
+          proxy_set_header Host $host;
+          proxy_cache_bypass $http_upgrade;
+      }
+  }
+```
 
 ### ***Implementado por [@roguitar88](https://github.com/roguitar88) e [@rodriguesrenato61](https://github.com/rodriguesrenato61)***
 
