@@ -130,7 +130,7 @@ $secure_websockets_server->run();
       }
 
       location /chat/server {
-          proxy_pass https://ws-backend;
+          proxy_pass http://ws-backend;
           proxy_set_header Host               $host;
           proxy_set_header X-Real-IP          $remote_addr;
 
