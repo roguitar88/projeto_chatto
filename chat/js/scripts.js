@@ -3,7 +3,7 @@ var protocol = window.location.protocol;
 //console.log(protocol + '//' + locationHost);
 if (locationHost == 'localhost' || locationHost == "127.0.0.1") {
     //Localhost
-    var websocket_server = new WebSocket('ws://' + locationHost + '/projeto_chatto:8080');
+    var websocket_server = new WebSocket('ws://' + locationHost + ':8080');
     var load_users_path = 'chat/load_users.php';
     var load_messages_path = 'chat/load_messages.php';        
 } else {
