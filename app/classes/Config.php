@@ -11,7 +11,7 @@ abstract class Config{
 
     //Special Methods
     function setUrlHost(){
-        if($_SERVER['HTTP_HOST'] == "localhost"){
+        if($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1"){
             $this->urlHost = "/projeto_chatto/";
         }else{
             $this->urlHost = $_SERVER['REQUEST_SCHEME']. '://'. "{$_SERVER['HTTP_HOST']}/";
