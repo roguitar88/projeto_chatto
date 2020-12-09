@@ -7,8 +7,6 @@ abstract class Config{
     public $row;   //$row is the row of the table selected according to data stored in $_SESSION...
     public $currentLocalTime;
 
-    //Methods
-
     //Special Methods
     function setUrlHost(){
         if($_SERVER['HTTP_HOST'] == "localhost" || $_SERVER['HTTP_HOST'] == "127.0.0.1"){

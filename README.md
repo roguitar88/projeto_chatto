@@ -154,6 +154,6 @@ $secure_websockets_server->run();
   }
 ```
 
-### ***Implementado por [@roguitar88](https://github.com/roguitar88) e [@rodriguesrenato61](https://github.com/rodriguesrenato61)***
+### ***Implementado por [@roguitar88](https://github.com/roguitar88), [@RafaelCapo](https://github.com/RafaelCapo) e [@rodriguesrenato61](https://github.com/rodriguesrenato61)***
 
 ### Qualquer bronca, enviar email para rogeriobsoares5@gmail.com ou uma mensagem direta para o Whatsapp [(62)982570993](http://wa.me/5562982570993)

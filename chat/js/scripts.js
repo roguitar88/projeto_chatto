@@ -4,8 +4,8 @@ var protocol = window.location.protocol;
 if (locationHost == 'localhost' || locationHost == "127.0.0.1") {
     //Localhost
     var websocket_server = new WebSocket('ws://' + locationHost + '/projeto_chatto:8080');
-    var load_users_path = '../chat/load_users.php';
-    var load_messages_path = '../chat/load_messages.php';        
+    var load_users_path = 'chat/load_users.php';
+    var load_messages_path = 'chat/load_messages.php';        
 } else {
     //Remote Server
     if(protocol == 'http:'){
