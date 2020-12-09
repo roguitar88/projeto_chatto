@@ -1,28 +1,25 @@
 {
     "name": "react/stream",
-    "description": "Basic readable and writable stream interfaces that support piping.",
-    "keywords": ["stream", "pipe"],
+    "description": "Event-driven readable and writable streams for non-blocking I/O in ReactPHP",
+    "keywords": ["event-driven", "readable", "writable", "stream", "non-blocking", "io", "pipe", "ReactPHP"],
     "license": "MIT",
     "require": {
         "php": ">=5.3.8",
-        "evenement/evenement": "^2.0|^1.0"
+        "react/event-loop": "^1.0 || ^0.5 || ^0.4 || ^0.3.5",
+        "evenement/evenement": "^3.0 || ^2.0 || ^1.0"
     },
     "require-dev": {
-        "react/event-loop": "^0.4|^0.3",
-        "react/promise": "^2.0|^1.0"
-    },
-    "suggest": {
-        "react/event-loop": "^0.4",
-        "react/promise": "^2.0"
+        "phpunit/phpunit": "^7.0 || ^6.4 || ^5.7 || ^4.8.35",
+        "clue/stream-filter": "~1.2"
     },
     "autoload": {
         "psr-4": {
             "React\\Stream\\": "src"
         }
     },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.5-dev"
+    "autoload-dev": {
+        "psr-4": {
+            "React\\Tests\\Stream\\": "tests"
         }
     }
 }

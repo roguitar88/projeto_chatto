@@ -48,7 +48,7 @@ $session = mt_rand(1,999);
 
 <div class="mainwrapper clearfix">
     <div class="section1">
-        <h1 align="center">Projeto ChatTo</h1>
+        <h1 class="text-center">Projeto ChatTo</h1>
         <br/>
         <p>logado como <?php echo $u->getUserName(); ?></p>
         <p><a href="ads.php">Voltar para usuários</a></p>

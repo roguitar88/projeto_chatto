@@ -39,7 +39,7 @@ $u->logOut();
 
 <div class="mainwrapper clearfix">
     <div class="section1">
-        <h1 align="center">Projeto ChatTo</h1>
+        <h1 class="text-center">Projeto ChatTo</h1>
         <br/>
         <p>logado como <?php echo $u->getUserName(); ?></p>
         <form enctype="multipart/form-data" action="" method="post">

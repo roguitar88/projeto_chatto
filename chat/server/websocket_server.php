@@ -1,13 +1,17 @@
 <?php
 set_time_limit(0);
 
+require_once '../../app/classes/Message.php';
+require_once '../vendor/autoload.php';
+
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
-require_once '../../app/classes/Message.php';
-require_once '../vendor/autoload.php';
+use React\EventLoop\Factory;
+use React\Socket\Server;
+use React\Socket\SecureServer;
 
 class Chat implements MessageComponentInterface {
 	protected $clients;
@@ -128,9 +132,28 @@ class Chat implements MessageComponentInterface {
 		$conn->close();
 	}
 }
+
 $server = IoServer::factory(
 	new HttpServer(new WsServer(new Chat())),
-	8080   //8989 for https, and 8080 for http
+	8080
 );
 $server->run();
-?>
+
+//To use this server with https protocol disable the five lines above by commenting them and use the code snippet that follows:
+/*
+$app = new HttpServer(new WsServer(new Chat()));
+
+$loop = Factory::create();
+
+#By configuring the stuff through the steps below, I guess you don't need to set PROXY PASS in the Web server (Apache, Nginx, etc.)
+$secure_websockets = new Server('0.0.0.0:8080', $loop);
+$secure_websockets = new SecureServer($secure_websockets, $loop, [
+	'local_cert' => '/etc/pathto/your-site/fullchain.pem',
+	'local_pk' => '/etc/pathto/your-site/privkey.pem',
+	'verify_peer' => false,
+	'allow_self_signed' => false   //When tested locally: true
+]);
+
+$secure_websockets_server = new IoServer($app, $secure_websockets, $loop);
+$secure_websockets_server->run();
+*/

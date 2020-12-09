@@ -11,36 +11,38 @@
 
 namespace Symfony\Component\Routing;
 
-use Symfony\Component\Config\Exception\FileLoaderLoadException;
+use Symfony\Component\Config\Exception\LoaderLoadException;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\ResourceInterface;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
+
+trigger_deprecation('symfony/routing', '5.1', 'The "%s" class is deprecated, use "%s" instead.', RouteCollectionBuilder::class, RoutingConfigurator::class);
 
 /**
  * Helps add and import routes into a RouteCollection.
  *
  * @author Ryan Weaver <ryan@knpuniversity.com>
+ *
+ * @deprecated since Symfony 5.1, use RoutingConfigurator instead
  */
 class RouteCollectionBuilder
 {
     /**
      * @var Route[]|RouteCollectionBuilder[]
      */
-    private $routes = array();
+    private $routes = [];
 
     private $loader;
-    private $defaults = array();
+    private $defaults = [];
     private $prefix;
     private $host;
     private $condition;
-    private $requirements = array();
-    private $options = array();
+    private $requirements = [];
+    private $options = [];
     private $schemes;
     private $methods;
-    private $resources = array();
+    private $resources = [];
 
-    /**
-     * @param LoaderInterface $loader
-     */
     public function __construct(LoaderInterface $loader = null)
     {
         $this->loader = $loader;
@@ -49,29 +51,34 @@ class RouteCollectionBuilder
     /**
      * Import an external routing resource and returns the RouteCollectionBuilder.
      *
-     *  $routes->import('blog.yml', '/blog');
+     *     $routes->import('blog.yml', '/blog');
      *
-     * @param mixed       $resource
-     * @param string|null $prefix
-     * @param string      $type
+     * @param mixed $resource
      *
-     * @return RouteCollectionBuilder
+     * @return self
      *
-     * @throws FileLoaderLoadException
+     * @throws LoaderLoadException
      */
-    public function import($resource, $prefix = '/', $type = null)
+    public function import($resource, string $prefix = '/', string $type = null)
     {
-        /** @var RouteCollection $collection */
-        $collection = $this->load($resource, $type);
+        /** @var RouteCollection[] $collections */
+        $collections = $this->load($resource, $type);
 
         // create a builder from the RouteCollection
         $builder = $this->createBuilder();
-        foreach ($collection->all() as $name => $route) {
-            $builder->addRoute($route, $name);
-        }
 
-        foreach ($collection->getResources() as $resource) {
-            $builder->addResource($resource);
+        foreach ($collections as $collection) {
+            if (null === $collection) {
+                continue;
+            }
+
+            foreach ($collection->all() as $name => $route) {
+                $builder->addRoute($route, $name);
+            }
+
+            foreach ($collection->getResources() as $resource) {
+                $builder->addResource($resource);
+            }
         }
 
         // mount into this builder
@@ -83,13 +90,9 @@ class RouteCollectionBuilder
     /**
      * Adds a route and returns it for future modification.
      *
-     * @param string      $path       The route path
-     * @param string      $controller The route's controller
-     * @param string|null $name       The name to give this route
-     *
      * @return Route
      */
-    public function add($path, $controller, $name = null)
+    public function add(string $path, string $controller, string $name = null)
     {
         $route = new Route($path);
         $route->setDefault('_controller', $controller);
@@ -101,7 +104,7 @@ class RouteCollectionBuilder
     /**
      * Returns a RouteCollectionBuilder that can be configured and then added with mount().
      *
-     * @return RouteCollectionBuilder
+     * @return self
      */
     public function createBuilder()
     {
@@ -110,11 +113,8 @@ class RouteCollectionBuilder
 
     /**
      * Add a RouteCollectionBuilder.
-     *
-     * @param string                 $prefix
-     * @param RouteCollectionBuilder $builder
      */
-    public function mount($prefix, RouteCollectionBuilder $builder)
+    public function mount(string $prefix, self $builder)
     {
         $builder->prefix = trim(trim($prefix), '/');
         $this->routes[] = $builder;
@@ -123,12 +123,9 @@ class RouteCollectionBuilder
     /**
      * Adds a Route object to the builder.
      *
-     * @param Route       $route
-     * @param string|null $name
-     *
      * @return $this
      */
-    public function addRoute(Route $route, $name = null)
+    public function addRoute(Route $route, string $name = null)
     {
         if (null === $name) {
             // used as a flag to know which routes will need a name later
@@ -143,11 +140,9 @@ class RouteCollectionBuilder
     /**
      * Sets the host on all embedded routes (unless already set).
      *
-     * @param string $pattern
-     *
      * @return $this
      */
-    public function setHost($pattern)
+    public function setHost(?string $pattern)
     {
         $this->host = $pattern;
 
@@ -157,11 +152,9 @@ class RouteCollectionBuilder
     /**
      * Sets a condition on all embedded routes (unless already set).
      *
-     * @param string $condition
-     *
      * @return $this
      */
-    public function setCondition($condition)
+    public function setCondition(?string $condition)
     {
         $this->condition = $condition;
 
@@ -172,12 +165,11 @@ class RouteCollectionBuilder
      * Sets a default value that will be added to all embedded routes (unless that
      * default value is already set).
      *
-     * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @return $this
      */
-    public function setDefault($key, $value)
+    public function setDefault(string $key, $value)
     {
         $this->defaults[$key] = $value;
 
@@ -188,12 +180,11 @@ class RouteCollectionBuilder
      * Sets a requirement that will be added to all embedded routes (unless that
      * requirement is already set).
      *
-     * @param string $key
-     * @param mixed  $regex
+     * @param mixed $regex
      *
      * @return $this
      */
-    public function setRequirement($key, $regex)
+    public function setRequirement(string $key, $regex)
     {
         $this->requirements[$key] = $regex;
 
@@ -201,15 +192,14 @@ class RouteCollectionBuilder
     }
 
     /**
-     * Sets an opiton that will be added to all embedded routes (unless that
+     * Sets an option that will be added to all embedded routes (unless that
      * option is already set).
      *
-     * @param string $key
-     * @param mixed  $value
+     * @param mixed $value
      *
      * @return $this
      */
-    public function setOption($key, $value)
+    public function setOption(string $key, $value)
     {
         $this->options[$key] = $value;
 
@@ -247,11 +237,9 @@ class RouteCollectionBuilder
     /**
      * Adds a resource for this collection.
      *
-     * @param ResourceInterface $resource
-     *
      * @return $this
      */
-    private function addResource(ResourceInterface $resource)
+    private function addResource(ResourceInterface $resource): self
     {
         $this->resources[] = $resource;
 
@@ -307,14 +295,16 @@ class RouteCollectionBuilder
             } else {
                 /* @var self $route */
                 $subCollection = $route->build();
-                $subCollection->addPrefix($this->prefix);
+                if (null !== $this->prefix) {
+                    $subCollection->addPrefix($this->prefix);
+                }
 
                 $routeCollection->addCollection($subCollection);
             }
+        }
 
-            foreach ($this->resources as $resource) {
-                $routeCollection->addResource($resource);
-            }
+        foreach ($this->resources as $resource) {
+            $routeCollection->addResource($resource);
         }
 
         return $routeCollection;
@@ -322,15 +312,13 @@ class RouteCollectionBuilder
 
     /**
      * Generates a route name based on details of this route.
-     *
-     * @return string
      */
-    private function generateRouteName(Route $route)
+    private function generateRouteName(Route $route): string
     {
         $methods = implode('_', $route->getMethods()).'_';
 
         $routeName = $methods.$route->getPath();
-        $routeName = str_replace(array('/', ':', '|', '-'), '_', $routeName);
+        $routeName = str_replace(['/', ':', '|', '-'], '_', $routeName);
         $routeName = preg_replace('/[^a-z0-9A-Z_.]+/', '', $routeName);
 
         // Collapse consecutive underscores down into a single underscore.
@@ -345,28 +333,32 @@ class RouteCollectionBuilder
      * @param mixed       $resource A resource
      * @param string|null $type     The resource type or null if unknown
      *
-     * @return RouteCollection
+     * @return RouteCollection[]
      *
-     * @throws FileLoaderLoadException If no loader is found
+     * @throws LoaderLoadException If no loader is found
      */
-    private function load($resource, $type = null)
+    private function load($resource, string $type = null): array
     {
         if (null === $this->loader) {
             throw new \BadMethodCallException('Cannot import other routing resources: you must pass a LoaderInterface when constructing RouteCollectionBuilder.');
         }
 
         if ($this->loader->supports($resource, $type)) {
-            return $this->loader->load($resource, $type);
+            $collections = $this->loader->load($resource, $type);
+
+            return \is_array($collections) ? $collections : [$collections];
         }
 
         if (null === $resolver = $this->loader->getResolver()) {
-            throw new FileLoaderLoadException($resource);
+            throw new LoaderLoadException($resource, null, null, null, $type);
         }
 
         if (false === $loader = $resolver->resolve($resource, $type)) {
-            throw new FileLoaderLoadException($resource);
+            throw new LoaderLoadException($resource, null, null, null, $type);
         }
 
-        return $loader->load($resource, $type);
+        $collections = $loader->load($resource, $type);
+
+        return \is_array($collections) ? $collections : [$collections];
     }
 }

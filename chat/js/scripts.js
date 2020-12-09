@@ -1,18 +1,20 @@
 var locationHost = document.location.host;
-if (locationHost == 'localhost') {
-    //console.log('Localhost');
-    var websocket_server = new WebSocket('ws://localhost:8080/');
-    var load_users_path = 'http://localhost/projeto_chatto/chat/load_users.php';
-    var load_messages_path = 'http://localhost/projeto_chatto/chat/load_messages.php';        
-} else {
-    //console.log('Remote Server');
-    if(window.location.protocol == 'http:'){
-        var websocket_server = new WebSocket('ws://your-site.com:8080/');
-    }else{
-        var websocket_server = new WebSocket('wss://your-site.com:8989/');
-    }
+var protocol = window.location.protocol;
+//console.log(protocol + '//' + locationHost);
+if (locationHost == 'localhost' || locationHost == "127.0.0.1") {
+    //Localhost
+    var websocket_server = new WebSocket('ws://' + locationHost + '/projeto_chatto:8080');
     var load_users_path = '../chat/load_users.php';
-    var load_messages_path = '../chat/load_messages.php';
+    var load_messages_path = '../chat/load_messages.php';        
+} else {
+    //Remote Server
+    if(protocol == 'http:'){
+        var websocket_server = new WebSocket('ws://' + locationHost + ':8080');
+    }else{
+        var websocket_server = new WebSocket('wss://' + locationHost + ':8080/chat/server');
+    }
+    var load_users_path = protocol + '//' + locationHost + '/chat/load_users.php';
+    var load_messages_path = protocol + '//' + locationHost + '/chat/load_messages.php';    
 }
 
 jQuery(function($){
@@ -280,7 +282,7 @@ function carregaMensagens(user){
     form.append('to', user);
  
     //fetch('../chat/load_messages.php', {
-    fetch('http://localhost/projeto_chatto/chat/load_messages.php', {
+    fetch(load_messages_path, {
 
         method: 'POST',
         body: form
