@@ -147,7 +147,7 @@ $secure_websockets_server->run();
           #Specific for websockets: force the use of HTTP/1.1 and set the Upgrade header
           proxy_http_version 1.1;
           proxy_set_header Upgrade $http_upgrade;
-          proxy_set_header Connection 'Upgrade';
+          proxy_set_header Connection $connection_upgrade;
           proxy_set_header Host $host;
           proxy_cache_bypass $http_upgrade;
       }
