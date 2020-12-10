@@ -1,6 +1,9 @@
 <?php
 set_time_limit(0);
 
+//IMPORTANT: to execute this code here try, if you're on Linux:
+//sudo php -f websocket_server.php
+
 require_once '../../app/classes/Message.php';
 require_once '../vendor/autoload.php';
 
