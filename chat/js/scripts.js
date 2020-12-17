@@ -3,27 +3,21 @@ var protocol = window.location.protocol;
 //console.log(protocol + '//' + locationHost);
 if (locationHost == 'localhost' || locationHost == '127.0.0.1') {
     //Localhost
+    var websocket_server = new WebSocket('ws://' + locationHost + ':8080/projeto_chatto');
     var load_users_path = 'chat/load_users.php';
     var load_messages_path = 'chat/load_messages.php';        
 } else {
     //Remote Server
+    if(protocol == 'http:'){
+        var websocket_server = new WebSocket('ws://' + locationHost + ':8080');
+    }else{
+        var websocket_server = new WebSocket('wss://' + locationHost + ':8080');
+    }
     var load_users_path = protocol + '//' + locationHost + '/chat/load_users.php';
     var load_messages_path = protocol + '//' + locationHost + '/chat/load_messages.php';    
 }
 
-jQuery(function($){
-    if (locationHost == 'localhost' || locationHost == '127.0.0.1') {
-        //Localhost
-        var websocket_server = new WebSocket('ws://' + locationHost + ':8080/projeto_chatto');
-    } else {
-        //Remote Server
-        if(protocol == 'http:'){
-            var websocket_server = new WebSocket('ws://' + locationHost + ':8080');
-        }else{
-            var websocket_server = new WebSocket('wss://' + locationHost + ':8080');
-        }
-    }
-    
+jQuery(function($){    
     // Websocket
     websocket_server.onopen = function(e) {
         websocket_server.send(
@@ -33,6 +27,9 @@ jQuery(function($){
                 'username': username.value
             })
         );
+
+        console.log('Conexão iniciada!');
+        disconnect();
 
     };
     websocket_server.onerror = function(e) {
@@ -128,6 +125,21 @@ jQuery(function($){
     carregaUsuarios();
     
 });
+
+function disconnect(){
+    websocket_server.onclose = function(e) {
+        websocket_server.send(
+            JSON.stringify({
+                'type':'close',
+                'user_from': userFrom.value,
+                'username_from': username.value
+            })
+        );
+    
+        //alert('Conexão fechada!');
+        console.log('Conexão fechada!');
+    };
+}
 
 var escolhido = {id: 0, userTo: null};
 
