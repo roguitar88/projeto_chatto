@@ -136,8 +136,7 @@ function disconnect(){
             })
         );
     
-        
-        alert('Conexão fechada!');
+        //alert('Conexão fechada!');
         console.log('Conexão fechada!');
     };
 }
