@@ -24,11 +24,12 @@ jQuery(function($){
         socket();
         online();
         console.log('Connection started!');
-        disconnect();
     };
+
     websocket_server.onerror = function(e) {
         // Errorhandling
     };
+
     websocket_server.onmessage = function(e)
     {
         //let html ='';
@@ -97,9 +98,12 @@ jQuery(function($){
                 }
 
             break;
-
 		   
         }
+    };
+
+    websocket_server.onclose = function(e) {
+        console.log('Connection closed!');
     };
 
     // EVENTS
@@ -124,8 +128,8 @@ jQuery(function($){
         console.log( 'Whoa! You\' just clicked on a link' ); 
     });
     $('form.logout').bind('submit', function() { inFormOrLink = false; }); //When the user logs out
-    $( 'input' ).click( function () { inFormOrLink = true; }); 
-    $( 'button' ).click( function () { inFormOrLink = true; });
+    $( 'input[type=submit]' ).click( function () { inFormOrLink = true; }); 
+    $( 'button[type=submit]' ).click( function () { inFormOrLink = true; });
 
     window.addEventListener( 'beforeunload' , function () {
 
@@ -209,12 +213,6 @@ function offline(){
             'username_from': username.value,
         })
     );
-}
-
-function disconnect(){
-    websocket_server.onclose = function(e) {
-        console.log('Connection closed!');
-    };
 }
 
 var chosen = {id: 0, userTo: null};
