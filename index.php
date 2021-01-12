@@ -40,6 +40,7 @@ $u->skipPageIfLogged();
 
 <div class="mainwrapper clearfix">
     <div class="section2">
+        <h1 class="text-center"><img src="images/chatto.png" ></h1>
         <h1 class="text-center">Projeto ChatTo</h1>
         <br/>
         <h1>Login</h1>
