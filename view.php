@@ -18,7 +18,6 @@ $u->logOut();
     $session = mt_rand(1,999);
 //}
 ?>
-<!--the html goes here-->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -29,8 +28,8 @@ $u->logOut();
     <link rel="stylesheet" type="text/css" href="css/index.css"/>
     <!--<link rel="stylesheet" type="text/css" href="css/styles.css"/>-->
     <link rel="stylesheet" href="css/style.css"/>
-    <link rel="shortcut icon" href="images/favicon_io/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="images/favicon_io/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="https://kit.fontawesome.com/dd21f273f4.js" crossorigin="anonymous"></script>
     <!--<script type="text/javascript" src="js/jquery.js"></script>-->
 
@@ -50,6 +49,7 @@ $u->logOut();
 
 <div class="mainwrapper clearfix">
     <div class="section1">
+        <h1 class="text-center"><img src="images/chatto.png" ></h1>        
         <h1 class="text-center">Projeto ChatTo</h1>
         <br/>
         <p>logado como <?php echo $u->getUserName(); ?></p>

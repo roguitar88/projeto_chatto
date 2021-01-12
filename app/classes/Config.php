@@ -21,7 +21,7 @@ abstract class Config{
     }
 
     function setPdo(){
-        $db1 = "banana_nanica";
+        $db1 = "chatto";
         
         try {
             //Local Host

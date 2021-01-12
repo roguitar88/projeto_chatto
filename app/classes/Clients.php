@@ -17,9 +17,9 @@ class Clients extends User{
             $adCode = $_GET['v'];
             $selectclient = $this->getPdo()->prepare("SELECT clients.*, registered_users.* FROM clients INNER JOIN registered_users ON clients.created_by = registered_users.id WHERE clients.ad_id = ?");
             $selectclient->execute(array($adCode));
-            $countad = $selectclient->rowCount();
+            $countit = $selectclient->rowCount();
 
-            if($countad > 0){
+            if($countit > 0){
                 $this->fetchClient = $selectclient->fetch(PDO::FETCH_ASSOC);
 
                 $this->clientId = $this->fetchClient['id2'];

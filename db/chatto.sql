@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Tempo de geração: 04-Ago-2020 às 20:31
--- Versão do servidor: 5.7.24
--- versão do PHP: 7.2.19
+-- Generation Time: Jan 12, 2021 at 02:05 AM
+-- Server version: 5.7.24
+-- PHP Version: 7.4.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +18,14 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Banco de dados: `banana_nanica`
+-- Database: `chatto`
 --
 
 DELIMITER $$
 --
--- Funções
+-- Functions
 --
+DROP FUNCTION IF EXISTS `getUsername`$$
 CREATE DEFINER=`root`@`localhost` FUNCTION `getUsername` (`userId` INTEGER) RETURNS VARCHAR(200) CHARSET utf8 RETURN (SELECT username FROM registered_users WHERE id = userId)$$
 
 DELIMITER ;
@@ -32,9 +33,10 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `chat_messages`
+-- Table structure for table `chat_messages`
 --
 
+DROP TABLE IF EXISTS `chat_messages`;
 CREATE TABLE `chat_messages` (
   `id` int(11) NOT NULL,
   `fk_userFrom` int(11) NOT NULL,
@@ -43,47 +45,47 @@ CREATE TABLE `chat_messages` (
   `register_date5` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `chat_messages`
+--
+
+INSERT INTO `chat_messages` (`id`, `fk_userFrom`, `fk_userTo`, `msgbody`, `register_date5`) VALUES
+(1, 1, 3, 'OlÃ¡', '2021-01-11 22:40:51'),
+(2, 3, 1, 'Oi, tudo bem?', '2021-01-11 22:40:51'),
+(3, 1, 3, 'Tudo, obrigado rs', '2021-01-11 22:40:51');
+
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `classified_ads`
+-- Table structure for table `clients`
 --
 
-CREATE TABLE `classified_ads` (
+DROP TABLE IF EXISTS `clients`;
+CREATE TABLE `clients` (
   `id2` int(11) NOT NULL,
   `ad_id` varchar(11) NOT NULL,
   `created_by` int(11) NOT NULL,
   `title` varchar(200) NOT NULL,
-  `description2` text NOT NULL,
-  `category` varchar(200) NOT NULL,
-  `brand` varchar(200) NOT NULL DEFAULT '',
-  `condition2` varchar(100) NOT NULL,
-  `checkvalue` int(11) NOT NULL DEFAULT '0',
-  `price` int(11) NOT NULL,
-  `discount` varchar(11) NOT NULL,
-  `register_date2` datetime NOT NULL,
-  `location2` varchar(200) NOT NULL,
-  `awaiting_approval` tinyint(1) NOT NULL,
-  `published` tinyint(1) NOT NULL DEFAULT '0',
-  `unactive` tinyint(1) NOT NULL DEFAULT '0'
+  `register_date2` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Extraindo dados da tabela `classified_ads`
+-- Dumping data for table `clients`
 --
 
-INSERT INTO `classified_ads` (`id2`, `ad_id`, `created_by`, `title`, `description2`, `category`, `brand`, `condition2`, `checkvalue`, `price`, `discount`, `register_date2`, `location2`, `awaiting_approval`, `published`, `unactive`) VALUES
-(4, '7845632', 1, 'Criado-mudo', 'Criado-mudo Avelar', 'eletrodomesticos', 'Enamel', 'usado', 1, 15000, '0', '2020-07-05 10:51:26', '74355516', 1, 0, 0),
-(6, '4390875', 1, 'Estante mor', 'Estante mor', 'estofados', 'Dracula', 'usado', 0, 14900, '0', '2020-07-05 12:25:17', '74355516', 1, 0, 0),
-(8, '6762345', 1, 'Armario Enamel', 'Armario Enamel', 'estofados', 'Dracula', 'usado', 0, 14356, '0', '2020-07-05 13:08:58', '74355516', 1, 0, 0),
-(9, '1209843', 3, 'Jogo de sofás', 'Jogo de sofás', 'estofados', 'Enamel', 'novo', 0, 79800, '0', '2020-07-09 20:21:45', '74355516', 1, 0, 0);
+INSERT INTO `clients` (`id2`, `ad_id`, `created_by`, `title`, `register_date2`) VALUES
+(4, '7845632', 1, 'Além do horizonte, existe um lugar...', '2020-07-05 10:51:26'),
+(6, '4390875', 1, 'Devia ter arriscado menos...', '2020-07-05 12:25:17'),
+(8, '6762345', 1, 'Coração, não faz assim...', '2020-07-05 13:08:58'),
+(9, '1209843', 3, 'Linda, só você me fascina...', '2020-07-09 20:21:45');
 
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `registered_users`
+-- Table structure for table `registered_users`
 --
 
+DROP TABLE IF EXISTS `registered_users`;
 CREATE TABLE `registered_users` (
   `id` int(11) NOT NULL,
   `credential2` int(11) NOT NULL DEFAULT '0',
@@ -103,7 +105,7 @@ CREATE TABLE `registered_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Extraindo dados da tabela `registered_users`
+-- Dumping data for table `registered_users`
 --
 
 INSERT INTO `registered_users` (`id`, `credential2`, `username`, `email`, `fullname`, `password2`, `reset_password_code`, `activationcode`, `activated`, `canceled`, `deactivate`, `register_date`, `userip`, `hostname`, `category`) VALUES
@@ -114,9 +116,10 @@ INSERT INTO `registered_users` (`id`, `credential2`, `username`, `email`, `fulln
 -- --------------------------------------------------------
 
 --
--- Estrutura stand-in para vista `vw_messages`
--- (Veja abaixo para a view atual)
+-- Stand-in structure for view `vw_messages`
+-- (See below for the actual view)
 --
+DROP VIEW IF EXISTS `vw_messages`;
 CREATE TABLE `vw_messages` (
 `id` int(11)
 ,`fk_userFrom` int(11)
@@ -130,18 +133,19 @@ CREATE TABLE `vw_messages` (
 -- --------------------------------------------------------
 
 --
--- Estrutura para vista `vw_messages`
+-- Structure for view `vw_messages`
 --
 DROP TABLE IF EXISTS `vw_messages`;
 
+DROP VIEW IF EXISTS `vw_messages`;
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vw_messages`  AS  select `chat_messages`.`id` AS `id`,`chat_messages`.`fk_userFrom` AS `fk_userFrom`,`getUsername`(`chat_messages`.`fk_userFrom`) AS `userFrom`,`chat_messages`.`fk_userTo` AS `fk_userTo`,`getUsername`(`chat_messages`.`fk_userTo`) AS `userTo`,`chat_messages`.`msgbody` AS `msgbody`,`chat_messages`.`register_date5` AS `register_date5` from `chat_messages` ;
 
 --
--- Índices para tabelas despejadas
+-- Indexes for dumped tables
 --
 
 --
--- Índices para tabela `chat_messages`
+-- Indexes for table `chat_messages`
 --
 ALTER TABLE `chat_messages`
   ADD PRIMARY KEY (`id`),
@@ -149,56 +153,56 @@ ALTER TABLE `chat_messages`
   ADD KEY `fk_userTo` (`fk_userTo`);
 
 --
--- Índices para tabela `classified_ads`
+-- Indexes for table `clients`
 --
-ALTER TABLE `classified_ads`
+ALTER TABLE `clients`
   ADD PRIMARY KEY (`id2`),
   ADD KEY `created_by` (`created_by`);
 
 --
--- Índices para tabela `registered_users`
+-- Indexes for table `registered_users`
 --
 ALTER TABLE `registered_users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT de tabelas despejadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de tabela `chat_messages`
+-- AUTO_INCREMENT for table `chat_messages`
 --
 ALTER TABLE `chat_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=222;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT de tabela `classified_ads`
+-- AUTO_INCREMENT for table `clients`
 --
-ALTER TABLE `classified_ads`
+ALTER TABLE `clients`
   MODIFY `id2` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
--- AUTO_INCREMENT de tabela `registered_users`
+-- AUTO_INCREMENT for table `registered_users`
 --
 ALTER TABLE `registered_users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Restrições para despejos de tabelas
+-- Constraints for dumped tables
 --
 
 --
--- Limitadores para a tabela `chat_messages`
+-- Constraints for table `chat_messages`
 --
 ALTER TABLE `chat_messages`
   ADD CONSTRAINT `messages_ibfk_1` FOREIGN KEY (`fk_userFrom`) REFERENCES `registered_users` (`id`),
   ADD CONSTRAINT `messages_ibfk_2` FOREIGN KEY (`fk_userTo`) REFERENCES `registered_users` (`id`);
 
 --
--- Limitadores para a tabela `classified_ads`
+-- Constraints for table `clients`
 --
-ALTER TABLE `classified_ads`
-  ADD CONSTRAINT `classified_ads_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `registered_users` (`id`);
+ALTER TABLE `clients`
+  ADD CONSTRAINT `clients_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `registered_users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

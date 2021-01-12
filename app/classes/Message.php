@@ -17,7 +17,7 @@
 			try{
 				//This is the config of the localhost
 				$host = "localhost";
-				$dbname = "banana_nanica";
+				$dbname = "chatto";
 				$user = "root";
 				$password = "";
 
@@ -30,7 +30,7 @@
 				try{
 					//This is the config of the remote host
 					$host = "localhost";
-					$dbname = "banana_nanica";
+					$dbname = "chatto";
 					$user = "dada";
 					$password = "mariamole";
 
@@ -62,14 +62,14 @@
 				 
 					$retorno = array(
 						"success" => true,
-						"msg" => "Mensagem registrada com sucesso!"
+						"msg" => "Message registered successfully!"
 					);
 					
 				}else{
 					
 					$retorno = array(
 						"success" => false,
-						"msg" => "Mensagem não registrada!"
+						"msg" => "The message could not be registered!"
 					);
 					
 				}
@@ -79,7 +79,7 @@
 			 
 				$retorno = array(
 					"success" => false,
-					"msg" => "Não foi possível registrar a mensagem!",
+					"msg" => "Fatal Error: the message could not be registered!",
 					"erro" => $e->getMessage()
 				);
 				
@@ -114,7 +114,7 @@
 				
 					$retorno = array(
 						"success" => true,
-						"msg" => "Mensagens carregadas com sucesso!",
+						"msg" => "The messages were loaded successfully",
 						"count" => $count,
 						"data" => $data
 					);
@@ -123,7 +123,7 @@
 					
 					$retorno = array(
 						"success" => true,
-						"msg" => "Nenhuma mensagem encontrada!",
+						"msg" => "No message found!",
 						"count" => $count,
 						"data" => NULL
 					);
@@ -134,7 +134,7 @@
 			
 				$retorno = array(
 					"success" => false,
-					"msg" => "Erro ao carregar mensagens!",
+					"msg" => "Error when loading messages",
 					"erro" => $e->getMessage()
 				);
 				

@@ -6,14 +6,13 @@ require_once "app/classes/User.php";
 require_once "app/classes/Clients.php";
 
 $u = new User();
-$a = new Clients();
+//$a = new Clients();
 $u->makeLogin();
 $u->skipPageIfLogged();
 //if (isset($_SESSION['email'])) {
     //$session = mt_rand(1,999);
 //}
 ?>
-<!--the html goes here-->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -22,8 +21,8 @@ $u->skipPageIfLogged();
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>
     <link rel="stylesheet" type="text/css" href="css/index.css"/>
-    <link rel="shortcut icon" href="images/favicon_io/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="images/favicon_io/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <script src="https://kit.fontawesome.com/dd21f273f4.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="js/jquery.js"></script>
 
@@ -57,21 +56,10 @@ $u->skipPageIfLogged();
             <input name="signin" class="btn btn-primary" value="Login" type="submit"><br/><br/>
             
         </form>
-        <input type="hidden" name="user-from" id="user-from" value="<?php echo($u->getId()); ?>">
-        <input type="hidden" name="username" id="username" value="<?php echo($u->getUserName()); ?>">
-        <input type="hidden" name="usernameto" id="usernameto" value="<?php if(NULL !== $a->getChatuser()){ echo($a->getChatuser()); } ?>">
-        <input type="hidden" name="sellerid" id="sellerid" value="<?php if(NULL !== $a->getChatuserId()){ echo $a->getChatuserId(); } ?>">
         <br/><br/><br/><br/>
     </div>
 </div>
 
-<?php
-if (isset($_SESSION['email'])) {
-?>
-<script type="text/javascript" src="chat/js/scripts.js"></script>
-<?php
-}
-?>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
