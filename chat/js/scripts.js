@@ -123,7 +123,7 @@ jQuery(function($){
         inFormOrLink = true;
         console.log( 'Whoa! You\' just clicked on a link' ); 
     });
-    $('form').bind('submit', function() { inFormOrLink = true; });
+    $('form.logout').bind('submit', function() { inFormOrLink = false; }); //When the user logs out
     $( 'input' ).click( function () { inFormOrLink = true; }); 
     $( 'button' ).click( function () { inFormOrLink = true; });
 

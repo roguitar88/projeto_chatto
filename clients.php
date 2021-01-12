@@ -50,7 +50,7 @@ $u->logOut();
         <h1 class="text-center">Projeto ChatTo</h1>
         <br/>
         <p>logado como <?php echo $u->getUserName(); ?></p>
-        <form enctype="multipart/form-data" action="" method="post">
+        <form class="logout" method="post">
             <input class="cust-btn" type="submit" name="logout" value="Sair" />
         </form>
     </div>

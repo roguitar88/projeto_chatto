@@ -54,7 +54,7 @@ $u->logOut();
         <br/>
         <p>logado como <?php echo $u->getUserName(); ?></p>
         <p><a class="navigate" href="clients.php">Voltar para usuários</a></p>
-        <form enctype="multipart/form-data" action="" method="post">
+        <form class="logout" method="post">
             <input class="cust-btn" type="submit" name="logout" value="Sair" />
         </form>
     </div>
