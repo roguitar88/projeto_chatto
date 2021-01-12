@@ -3,7 +3,7 @@
 
 - Adaptação do tutorial https://www.youtube.com/watch?v=OHy2zpmsWf8
 
-- Na pasta /bd você vai encontrar o banco de dados (banana_nanica)
+- Na pasta /bd você vai encontrar o banco de dados (chatto)
 
 - DICA: Vá até o diretório /chat/server/websocket_server.php, abra o terminal ou cmd e execute a seguinte linha para habilitar o servidor.
 ```
@@ -35,7 +35,14 @@ kill -9 id_do_processo
 
 ## E agora? O que falta em termos de funcionalidade?
 - A parte dos ticks de visualização das mensagens
-- Fazer a barra de rolagem rolar automaticamente até o final da div quando qualquer dos usuários entram com nova mensagem, independente de onde está posicionada a barra de rolagem (scroll). Em /chat/js/scripts.js, na linha 98, até tentei fazer algo nesse sentido... Lembrando também que inverti a div #logs de ponta a cabeça no CSS (Vide /css/index.css, a partir da linha 804 que você entenderá melhor)
+- Corrigir alguns pequenos problemas da funcionalidade online/offline via Websocket:
+    - Estamos usando o evento Javascript 'beforeunload'. No entanto, sabemos que ele não é assim tão efetivo para executar comandos na hora em que o evento 'beforeunload' ou 'onbeforeunload' é disparado. Até porque ele pode ser chamado quando o usuário recarrega a página com F5 ou ENTER, ou quando usa as setas de ir ou voltar do navegador, ou quando está navegando no site, por meio do clique de algum link.
+    - Sabido isto, até criamos uma maneira de 'burlar' isso com uma pequena gambiarra que você encontrará em /chat/js/scripts.js. Tentamos desativar os eventos de cliques em links que permitem a navegação. Agora, só falta achar uma solução para impedir o 'beforeunload' quando o usuário dá um refresh com F5 ou ENTER, quando clica nas setas de ir e voltar e ainda quando durante a mudança de uma página para a outra, a conexão com o websocket fecha.
+    - Colocando em miúdos, temos os seguintes problemas para sanar:
+        - Anular o efeito de F5 ou ENTER (refresh);
+        - Anular o clique nos botões de ir e voltar do navegador;
+        - Criar algum mecanismo para anular ou mascarar o 'offline' momentâneo quando durante a navegação de uma página para a outra o Websocket ligeiramente desconecta e depois volta a conectar.
+- Fazer a barra de rolagem rolar automaticamente até o final da div quando qualquer dos usuários entra com nova mensagem, independente de onde está posicionada a barra de rolagem (scroll). Em /chat/js/scripts.js, até tentei fazer algo nesse sentido... Lembrando também que inverti a div #logs de ponta a cabeça no CSS (Vide /css/index.css que você entenderá melhor)
 - Quanto ao estilo, se você for bom em design poderá bolar um layout pro chat box do jeito que você quiser
 - IMPORTANTE: Lembre-se que para haver compatibilidade com a versão HTTPS de seu site, é necessário usar o protocolo ***wss://*** ao invés do ***ws://***. Isto já está definido nas 18 primeiras linhas de /chat/js/scripts.js. Além disso, é preciso que, nas linhas 151 e 152, você configure o caminho correto tanto do seu certificado (.pem ou .crt), quanto da sua chave privada ou ***private key*** (.pem ou .key). Na versão HTTPS do seu site, as linhas abaixo, devem ser habilitadas, enquanto que as linhas correspondentes apenas à conexão HTTP normal devem ser comentadas.
 
