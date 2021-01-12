@@ -3,18 +3,20 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 require_once "app/classes/User.php";
-require_once "app/classes/Ads.php";
+require_once "app/classes/Clients.php";
 
 $u = new User();
 $u->checkLogin();
 
-$a = new Ads();
+$a = new Clients();
 
-$a->viewAd();
+$a->viewClients();
 
 $u->logOut();
 
-$session = mt_rand(1,999);
+//if (isset($_SESSION['email'])) {
+    $session = mt_rand(1,999);
+//}
 ?>
 <!--the html goes here-->
 <!DOCTYPE html>
@@ -51,7 +53,7 @@ $session = mt_rand(1,999);
         <h1 class="text-center">Projeto ChatTo</h1>
         <br/>
         <p>logado como <?php echo $u->getUserName(); ?></p>
-        <p><a href="ads.php">Voltar para usuários</a></p>
+        <p><a class="navigate" href="clients.php">Voltar para usuários</a></p>
         <form enctype="multipart/form-data" action="" method="post">
             <input class="cust-btn" type="submit" name="logout" value="Sair" />
         </form>
@@ -69,12 +71,16 @@ $session = mt_rand(1,999);
 					<p style="font-size:120%;">
 						<strong>
 						<?php
-						echo $a->getAdvertiser();
+						echo $a->getChatuser();
 						?>
 						</strong>
 					</p>
-					<button <?php if(!isset($_SESSION['username'])){ ?>onClick="alert('Ops! Você precisa estar logado para se conectar')"<?php }else{ if($_SESSION['username'] == $a->getAdvertiser()){ ?>onClick="alert('Ops! Você não pode mandar mensagens pra si mesmo')"<?php }else{ ?>id="users" class="chatbutton item-user"<?php } } ?> ></button>
+					<button <?php if(!isset($_SESSION['username'])){ ?>onClick="alert('Ops! Você precisa estar logado para se conectar')"<?php }else{ if($_SESSION['username'] == $a->getChatuser()){ ?>onClick="alert('Ops! Você não pode mandar mensagens pra si mesmo')"<?php }else{ ?>id="users" class="chatbutton item-user"<?php } } ?> ></button>
 					<br/>
+                    <p style="font-size:65%;" id="user-status">
+                        <!-- Here it must show 'offline' by default, until this value is replaced by the Websocket emitter in 'scripts.js' -->
+                        <img src="images/offline-dot.png" style="width: 12px; height: auto;" /> Offline
+                    </p>
 				</div>
 			</div>
 			<div class="col-lg-4">
@@ -92,7 +98,8 @@ $session = mt_rand(1,999);
             <input type="hidden" name="username" id="username" value="<?php echo($u->getUserName()); ?>">
             <!--<input type="hidden" name="username" id="username" value="<?php //echo($u->getUsername()); ?>">-->
             <input type="hidden" name="user-to" id="user-to">
-            <input type="hidden" name="usernameto" id="usernameto" value="<?php echo($a->getAdvertiser()); ?>">
+            <input type="hidden" name="usernameto" id="usernameto" value="<?php if(NULL !== $a->getChatuser()){ echo($a->getChatuser()); } ?>">
+            <input type="hidden" name="sellerid" id="sellerid" value="<?php if(NULL !== $a->getChatuserId()){ echo $a->getChatuserId(); } ?>">
 
             <div id="chat-window">
                 <!-- https://codepen.io/muratcorlu/pen/KzmQEP -->

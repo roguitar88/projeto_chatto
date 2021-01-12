@@ -3,13 +3,19 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 session_start();
 require_once "app/classes/User.php";
+require_once "app/classes/Clients.php";
 
 $u = new User();
 $u->checkLogin();
 
+$a = new Clients();
+
 $u->logOut();
 
 //$u->skipPageIfLogged();
+//if (isset($_SESSION['email'])) {
+    $session = mt_rand(1,999);
+//}
 ?>
 <!--the html goes here-->
 <!DOCTYPE html>
@@ -51,11 +57,17 @@ $u->logOut();
         <h1>Usuários disponíveis para conexão:</h1>
         <?php
         ?>
-        <p><a href="view.php?v=1209843">Conectar com joilson</a> <?php if($u->getUserName() == "joilson"){ echo "(Eu)"; } ?></p>
-        <p><a href="view.php?v=7845632">Conectar com roguitar <?php if($u->getUserName() == "roguitar"){ echo "(Eu)"; } ?></a></p>
+        <p><a class="navigate" href="view.php?v=1209843">Conectar com joilson</a> <?php if($u->getUserName() == "joilson"){ echo "(Eu)"; } ?></p>
+        <p><a class="navigate" href="view.php?v=7845632">Conectar com roguitar <?php if($u->getUserName() == "roguitar"){ echo "(Eu)"; } ?></a></p>
+        <input type="hidden" name="user-from" id="user-from" value="<?php echo($u->getId()); ?>">
+        <input type="hidden" name="username" id="username" value="<?php echo($u->getUserName()); ?>">
+        <input type="hidden" name="usernameto" id="usernameto" value="<?php if(NULL !== $a->getChatuser()){ echo($a->getChatuser()); } ?>">
+        <input type="hidden" name="sellerid" id="sellerid" value="<?php if(NULL !== $a->getChatuserId()){ echo $a->getChatuserId(); } ?>">
         <br/><br/><br/><br/>
     </div>
 </div>
+
+<script type="text/javascript" src="chat/js/scripts.js"></script>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -29,7 +29,7 @@ class User extends Config{
                 if ($stmt->rowCount() == 1) {
                     $_SESSION['username'] = $this->row['username'];
                     $_SESSION['user_id'] = $this->row['id'];
-                    header('Location: '.$this->getUrlHost().'ads.php');
+                    header('Location: '.$this->getUrlHost().'clients.php');
                     exit;
                 }
             }else{
@@ -50,7 +50,7 @@ class User extends Config{
 
     public function skipPageIfLogged(){
         if(isset($_SESSION['username'])){
-            header('Location: '.$this->getUrlHost().'ads.php');
+            header('Location: '.$this->getUrlHost().'clients.php');
         }
     }
 

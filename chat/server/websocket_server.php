@@ -45,11 +45,14 @@ class Chat implements MessageComponentInterface {
 			
 			case 'socket':
 			
-				$from_id = $data->user_id;
-				$from->resourceId = intval($from_id);
-				$username = $data->username;
-				echo("\nConexao {$from->resourceId} aberta para {$username}");
-			
+				$user_from = $data->user_from;
+				$from->resourceId = intval($user_from);
+				$username_from = $data->username_from;
+				echo("\nConnection {$from->resourceId} successfully started for {$username_from}");
+				
+				//As soon as the user logs in, JS (via 'visibilitychange') fires an event that detects that he/she is online and shows it immediately to the other end.
+				//Here you can also use DB requests to update users' status as online, if you like.
+				
 			break;
 			
 			case 'chat':
@@ -62,7 +65,7 @@ class Chat implements MessageComponentInterface {
 				
 				$result = $this->msg->insert_message($user_from, $user_to, $chat_msg);
 				
-				echo("\nMensagem de {$username_from} para {$username_to}: {$result['msg']}");
+				echo("\nMessage from {$username_from} to {$username_to}: {$result['msg']}");
 
 				//$response_from = "<div class='rightmsg'><b>".$username_from.":</b> ".$chat_msg."</div>"; //or $user_from
 				$response_from = "<div class='rightmsg'>".$chat_msg."</div>"; //or $user_from
@@ -82,17 +85,16 @@ class Chat implements MessageComponentInterface {
 				
 			break;
 			
-			case 'digitando':
+			case 'typing':
 			
 				$user_from = $data->user_from;
 				$user_to = $data->user_to;
 				$username_from = $data->username_from;
 				$username_to = $data->username_to;
 				
-				echo("\n{$username_from} está digitando uma mensagem para {$username_to}");
+				echo("\n{$username_from} is typing a message to {$username_to}");
 				
 				// Output
-				
 				foreach($this->clients as $client)
 				{
 					if($from!=$client && $client->resourceId == $user_to)
@@ -101,6 +103,46 @@ class Chat implements MessageComponentInterface {
 					}
 				}
 				
+			break;
+
+			case 'online':
+
+				$user_from = $data->user_from;
+				$from->resourceId = intval($user_from);
+
+				$connectedusers = array();
+				foreach($this->clients as $client)
+				{
+					$connectedusers[] = $client->resourceId;
+				}
+
+				foreach($this->clients as $client)
+				{
+					$client->send(json_encode(array("type"=>$type, "from2" => $connectedusers)));
+				}
+
+			break;
+
+			case 'close':
+
+				$user_from = $data->user_from;
+				$from->resourceId = intval($user_from);
+				$username_from = $data->username_from;
+				echo "\n\nConnection has just been closed for {$username_from}";
+				
+				//Here you can use DB requests to update users' status as offline, if you like.
+
+				$connectedusers = array();
+				foreach($this->clients as $client)
+				{
+					$connectedusers[] = $client->resourceId;
+				}
+
+				foreach($this->clients as $client)
+				{
+					$client->send(json_encode(array("type"=>$type, "from2" => $connectedusers)));
+				}
+
 			break;
 
 		}
