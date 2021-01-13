@@ -131,6 +131,7 @@ jQuery(function($){
     $( 'input[type=submit]' ).click( function () { inFormOrLink = true; }); 
     $( 'button[type=submit]' ).click( function () { inFormOrLink = true; });
 
+    /*
     window.addEventListener( 'beforeunload' , function () {
 
         if(!inFormOrLink){
@@ -140,6 +141,17 @@ jQuery(function($){
         inFormOrLink = false;
 
     });
+    */
+
+    window.onbeforeunload = closeWindow;
+    function closeWindow()
+    {
+        if(!inFormOrLink){
+            offline();
+        }
+    
+        inFormOrLink = false;
+    }
     
     $('#leftPart').keypress(function(e){ return e.which != 13; });  //This prevents the Enter key from producing <br> in the end everytime it's pressed.
 
