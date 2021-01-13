@@ -27,6 +27,10 @@ class User extends Config{
             // Se a linha (row) existir, mostre ao usuário que o mesmo se encontra logado e redirecione-o para outro lugar.
             if(!$err){
                 if ($stmt->rowCount() == 1) {
+                    //Update the user's status in bd to 'online'
+                    $updatestatus = $this->getPdo()->prepare("UPDATE registered_users SET st_online = ?, last_activity_update = ? WHERE id = ?");
+                    $updatestatus->execute(array(1, $this->getCurrentLocalTime(), $this->row['id']));
+
                     $_SESSION['username'] = $this->row['username'];
                     $_SESSION['user_id'] = $this->row['id'];
                     header('Location: '.$this->getUrlHost().'clients.php');
@@ -57,6 +61,9 @@ class User extends Config{
     public function logOut(){
         if(isset($_POST['logout'])){
             if(isset($_SESSION['username'])){
+                //Update the user's status in bd to 'offline'
+                $updatestatus = $this->getPdo()->prepare("UPDATE registered_users SET st_online = ?, last_activity_update = ? WHERE id = ?");
+                $updatestatus->execute(array(0, $this->getCurrentLocalTime(), $this->row['id']));
                 session_destroy();
                 header('Location: '.$this->getUrlHost());
                 exit;
@@ -71,6 +78,7 @@ class User extends Config{
     public function __construct(){
         $this->setPdo();
         $this->setUrlHost();
+        $this->setCurrentLocalTime();
         $this->setRow();
 
         if(NULL !== $this->row){
