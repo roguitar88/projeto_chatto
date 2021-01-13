@@ -52,14 +52,7 @@ class Chat implements MessageComponentInterface {
 				
 				//As soon as the user logs in, JS (via 'visibilitychange') fires an event that detects that he/she is online and shows it immediately to the other end.
 				//Here you can also use DB requests to update users' status as online, if you like.
-				$one = 1;
-				$curtime = $this->msg->getCurrentLocalTime();
-				$id = $from->resourceId;
-				$updateonline = $this->msg->getPdo()->prepare("UPDATE registered_users SET st_online = ?, last_activity_update = ? WHERE id = ?");
-				$updateonline->bindParam(1, $one, PDO::PARAM_INT);
-				$updateonline->bindParam(2, $curtime, PDO::PARAM_STR);
-				$updateonline->bindParam(3, $id, PDO::PARAM_INT);
-				$updateonline->execute();
+				$this->msg->update_online(1, $from->resourceId);
 
 			break;
 			
@@ -139,14 +132,7 @@ class Chat implements MessageComponentInterface {
 				echo "\n\nConnection has just been closed for {$username_from}";
 				
 				//Here you can use DB requests to update users' status as offline, if you like.
-				$zero = 0;
-				$curtime = $this->msg->getCurrentLocalTime();
-				$id = $from->resourceId;
-				$updateonline = $this->msg->getPdo()->prepare("UPDATE registered_users SET st_online = ?, last_activity_update = ? WHERE id = ?");
-				$updateonline->bindParam(1, $zero, PDO::PARAM_INT);
-				$updateonline->bindParam(2, $curtime, PDO::PARAM_STR);
-				$updateonline->bindParam(3, $id, PDO::PARAM_INT);
-				$updateonline->execute();
+				$this->msg->update_online(0, $from->resourceId);
 
 				$connectedusers = array();
 				foreach($this->clients as $client)

@@ -21,14 +21,14 @@ abstract class Config{
     }
 
     function setPdo(){
-        $db1 = "chatto";
+        $db = "chatto";
         
         try {
             //Local Host
-            $dsn = 'mysql:host=localhost;dbname='.$db1;
+            $dsn = 'mysql:host=localhost;dbname='.$db;
             $user = 'root';
             $pw = "";
-            $sessionpath = 'C:/laragon/tmp';
+            //$sessionpath = 'C:/laragon/tmp';
             $this->pdo = new PDO($dsn, $user, $pw, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET CHARACTER SET utf8, NAMES utf8"));
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
         } catch(PDOException $e) {  //$e
@@ -38,7 +38,7 @@ abstract class Config{
                 try{
                     //Remote Host
                     //roguitar@localhost
-                    $dsn = 'mysql:host=ricky.heliohost.org;dbname='.$db1;
+                    $dsn = 'mysql:host=ricky.heliohost.org;dbname='.$db;
                     $user = 'mariamole';
                     $pw = '123456';
                     $sessionpath = '/home/orange77/tmp';

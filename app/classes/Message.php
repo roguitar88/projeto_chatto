@@ -1,52 +1,17 @@
 <?php
-	//require_once "User.php";
-	
-	class Message{
-		protected $pdo;
-		private $currentLocalTime;
+	require_once "Config.php";
+
+	class Message extends Config {
 		
 		public function __construct(){
-			//parent::__construct();
-			
-			$tz = 'America/Sao_Paulo';
-			$timestamp = time();
-			$dt = new DateTime("now", new DateTimeZone($tz)); //first argument "must" be a string
-			$dt->setTimestamp($timestamp); //adjust the object to correct timestamp
-			$this->currentLocalTime = $dt->format("Y-m-d H:i:s");	
-
-			try{
-				//This is the config of the localhost
-				$host = "localhost";
-				$dbname = "chatto";
-				$user = "root";
-				$password = "";
-
-				$this->pdo = new PDO("mysql:host={$host};dbname={$dbname}", $user, $password);
-				
-			}catch(Exception $e){
-				//echo("Erro: {$e->getMessage()}");
-				//Uncomment the code snippet below, if wanna set the remote host configuration for connection with your web server
-				/*
-				try{
-					//This is the config of the remote host
-					$host = "localhost";
-					$dbname = "chatto";
-					$user = "dada";
-					$password = "mariamole";
-
-					$this->pdo = new PDO("mysql:host={$host};dbname={$dbname}", $user, $password);
-				
-				}catch(Exception $e){
-					echo("Erro: {$e->getMessage()}");
-				}
-				*/
-			}
+			$this->setPdo();
+			$this->setCurrentLocalTime();
 		}
 		
 		public function insert_message($from, $to, $corpo){
 		 
 			try{
-				$now = $this->currentLocalTime;
+				$now = $this->getCurrentLocalTime();
 
 				$sql = $this->getPdo()->prepare("INSERT INTO chat_messages(fk_userFrom, fk_userTo, msgbody, register_date5) VALUES(:from, :to, :body, :now)");
 				$sql->bindParam(":from", $from, PDO::PARAM_INT);
@@ -54,10 +19,7 @@
 				$sql->bindParam(":body", $corpo, PDO::PARAM_STR);
 				$sql->bindParam(":now", $now, PDO::PARAM_STR);
 				$sql->execute();
-				/*
-				$sql = $this->getPdo()->prepare("INSERT INTO chat_messages(fk_userFrom, fk_userTo, msgbody, register_date5) VALUES(?, ?, ?, ?)");
-				$sql->execute(array($from, $to, $corpo, $now));
-				*/
+
 				if($sql->rowCount() > 0){
 				 
 					$retorno = array(
@@ -143,24 +105,14 @@
 			return $retorno;
 		}
 
-		public function getPdo(){
-		
-			return $this->pdo;
-		}
-
-		public function setPdo($pdo){
-		
-			$this->pdo = $pdo;
-		}
-
-		public function getCurrentLocalTime(){
-		
-			return $this->currentLocalTime;
-		}
-
-		public function setCurrentLocalTime($currentLocalTime){
-		
-			$this->currentLocalTime = $currentLocalTime;
+		public function update_online($bool, $id)
+		{
+			$now = $this->getCurrentLocalTime();
+			$update = $this->getPdo()->prepare("UPDATE registered_users SET st_online = ?, last_activity_update = ? WHERE id = ?");
+			$update->bindParam(1, $bool, PDO::PARAM_INT);
+			$update->bindParam(2, $now, PDO::PARAM_STR);
+			$update->bindParam(3, $id, PDO::PARAM_INT);
+			$update->execute();
 		}
 		
 	}

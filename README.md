@@ -3,7 +3,7 @@
 
 - Adaptação do tutorial https://www.youtube.com/watch?v=OHy2zpmsWf8
 
-- Na pasta /bd você vai encontrar o banco de dados (chatto)
+- Na pasta /bd você vai encontrar o banco de dados (chatto). Para configurar o banco de dados remoto, só ir em classes/Config.php (função ***setPdo()***) e alterar as credenciais de acordo com a configuração de acesso do seu banco.
 
 - DICA: Vá até o diretório /chat/server/websocket_server.php, abra o terminal ou cmd e execute a seguinte linha para habilitar o servidor.
 ```
