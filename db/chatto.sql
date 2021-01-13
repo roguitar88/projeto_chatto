@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jan 12, 2021 at 02:05 AM
+-- Generation Time: Jan 13, 2021 at 01:38 AM
 -- Server version: 5.7.24
 -- PHP Version: 7.4.10
 
@@ -52,7 +52,10 @@ CREATE TABLE `chat_messages` (
 INSERT INTO `chat_messages` (`id`, `fk_userFrom`, `fk_userTo`, `msgbody`, `register_date5`) VALUES
 (1, 1, 3, 'OlÃ¡', '2021-01-11 22:40:51'),
 (2, 3, 1, 'Oi, tudo bem?', '2021-01-11 22:40:51'),
-(3, 1, 3, 'Tudo, obrigado rs', '2021-01-11 22:40:51');
+(3, 1, 3, 'Tudo, obrigado rs', '2021-01-11 22:40:51'),
+(4, 3, 1, 'Q bom rs', '2021-01-11 23:07:26'),
+(5, 1, 3, 'O que faz de bom?', '2021-01-12 22:32:50'),
+(6, 3, 1, 'Nada rs', '2021-01-12 22:32:50');
 
 -- --------------------------------------------------------
 
@@ -101,17 +104,19 @@ CREATE TABLE `registered_users` (
   `register_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `userip` varchar(200) NOT NULL,
   `hostname` varchar(200) NOT NULL,
-  `category` varchar(200) NOT NULL
+  `category` varchar(200) NOT NULL,
+  `last_activity_update` datetime DEFAULT CURRENT_TIMESTAMP,
+  `st_online` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `registered_users`
 --
 
-INSERT INTO `registered_users` (`id`, `credential2`, `username`, `email`, `fullname`, `password2`, `reset_password_code`, `activationcode`, `activated`, `canceled`, `deactivate`, `register_date`, `userip`, `hostname`, `category`) VALUES
-(1, 2, 'roguitar', 'rogeriobsoares5@gmail.com', '', '123', '', '83152f45', 0, 0, 0, '2020-06-24 10:37:48', '::1', 'Rogerio-PC', 'puts'),
-(2, 0, 'joaozito', 'joaozinho@gmail.com', '', '123', '', '123', 0, 0, 0, '2020-06-24 00:00:00', '4532', '4532-sky', 'lan'),
-(3, 0, 'joilson', 'joilson@gmail.com', 'Joilson Carvalho', '123', '', '', 1, 0, 0, '2020-07-28 17:01:36', '', '', '');
+INSERT INTO `registered_users` (`id`, `credential2`, `username`, `email`, `fullname`, `password2`, `reset_password_code`, `activationcode`, `activated`, `canceled`, `deactivate`, `register_date`, `userip`, `hostname`, `category`, `last_activity_update`, `st_online`) VALUES
+(1, 2, 'roguitar', 'rogeriobsoares5@gmail.com', '', '123', '', '83152f45', 0, 0, 0, '2020-06-24 10:37:48', '::1', 'Rogerio-PC', 'puts', '2021-01-12 22:32:50', 1),
+(2, 0, 'joaozito', 'joaozinho@gmail.com', '', '123', '', '123', 0, 0, 0, '2020-06-24 00:00:00', '4532', '4532-sky', 'lan', NULL, 0),
+(3, 0, 'joilson', 'joilson@gmail.com', 'Joilson Carvalho', '123', '', '', 1, 0, 0, '2020-07-28 17:01:36', '', '', '', '2021-01-12 22:32:50', 1);
 
 -- --------------------------------------------------------
 
@@ -173,7 +178,7 @@ ALTER TABLE `registered_users`
 -- AUTO_INCREMENT for table `chat_messages`
 --
 ALTER TABLE `chat_messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `clients`

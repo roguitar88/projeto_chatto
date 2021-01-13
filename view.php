@@ -78,8 +78,18 @@ $u->logOut();
 					<button <?php if(!isset($_SESSION['username'])){ ?>onClick="alert('Ops! Você precisa estar logado para se conectar')"<?php }else{ if($_SESSION['username'] == $a->getChatuser()){ ?>onClick="alert('Ops! Você não pode mandar mensagens pra si mesmo')"<?php }else{ ?>id="users" class="chatbutton item-user"<?php } } ?> ></button>
 					<br/>
                     <p style="font-size:65%;" id="user-status">
-                        <!-- Here it must show 'offline' by default, until this value is replaced by the Websocket emitter in 'scripts.js' -->
+                        <!-- <img src="images/offline-dot.png" style="width: 12px; height: auto;" /> Offline -->
+                        <?php
+                        if ($a->getClientStatus() == 1) {
+                        ?>
+                        <img src="images/online-dot.png" style="width: 12px; height: auto;" /> Online agora
+                        <?php    
+                        } else {
+                        ?>
                         <img src="images/offline-dot.png" style="width: 12px; height: auto;" /> Offline
+                        <?php
+                        }
+                        ?>
                     </p>
 				</div>
 			</div>

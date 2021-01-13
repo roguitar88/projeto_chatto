@@ -8,6 +8,7 @@ class Clients extends User{
     private $chatuser;
     private $chatuserId;
     private $fetchClient;
+    private $clientStatus;
 
     //Methods
     public function viewClients(){
@@ -29,6 +30,8 @@ class Clients extends User{
                 $this->chatuser = $this->fetchClient['username'];
 
                 $this->chatuserId = $this->fetchClient['id'];
+
+                $this->clientStatus = $this->fetchClient['st_online'];
 
             }else{
                 //If any code couldn't be found in the table, the page won't be accessed.
@@ -84,6 +87,14 @@ class Clients extends User{
 
     public function setChatuserId($chatuserId){
         $this->chatuserId = $chatuserId;
+    }
+
+    public function getClientStatus(){
+        return $this->clientStatus;
+    }
+
+    public function setClientStatus($clientStatus){
+        $this->clientStatus = $clientStatus;
     }
 }
 ?>
