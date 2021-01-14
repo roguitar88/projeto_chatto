@@ -10,9 +10,9 @@ if (locationHost == 'localhost' || locationHost == '127.0.0.1') {
 } else {
     //Remote Server
     if(protocol == 'http:'){
-        var websocket_server = new WebSocket('ws://' + locationHost + ':8080');
+        var websocket_server = new WebSocket('ws://' + locationHost + ':8080/ws');
     }else{
-        var websocket_server = new WebSocket('wss://' + locationHost + ':8080');
+        var websocket_server = new WebSocket('wss://' + locationHost + ':8080/wss');
     }
     var load_users_path = protocol + '//' + locationHost + '/chat/load_users.php';
     var load_messages_path = protocol + '//' + locationHost + '/chat/load_messages.php';    
