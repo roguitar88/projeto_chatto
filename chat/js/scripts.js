@@ -28,6 +28,7 @@ jQuery(function($){
 
     websocket_server.onerror = function(e) {
         // Errorhandling
+        console.log('Oops! Some error in connection');
     };
 
     websocket_server.onmessage = function(e)
@@ -103,7 +104,7 @@ jQuery(function($){
     };
 
     websocket_server.onclose = function(e) {
-        console.log('Connection closed!');
+        console.log('Connection closed | CODE: '+e.code+', REASON: '+e.reason);
     };
 
     // EVENTS
@@ -122,6 +123,22 @@ jQuery(function($){
     //Another issue: The user has to wait for the page to load completely and the websocket connection to open so that he closes the browser thereafter. If he closes it immediately during the loading process, the other user (at the other end) will continue as online.
     //NOTE: 'beforeunload' may not work in 100% of the cases.
     var inFormOrLink;
+
+    window.onkeydown = function (e) {
+        //Refer to https://keycode.info/
+        if(e.keyCode == 116 || e.which == 116){  //F5
+            inFormOrLink = true;
+        //}else if(e.keyCode == 114 || e.which == 114){   //F3, F5
+            //inFormOrLink = true;
+        }else if((e.keyCode == 82 || e.which == 82) && e.ctrlKey){  // Ctrl + R
+            inFormOrLink = true;
+        }
+        /*
+        else if(e.keyCode == 13){  //Enter
+            inFormOrLink = true;
+        }
+        */
+    }
 
     $('a.navigate').click(function() {
         inFormOrLink = true;
@@ -259,6 +276,7 @@ function loadUsers(){
     }).then(function(response){
        
         return response.json();
+
     }).then(function(data){
         
         if(data.success){
@@ -332,6 +350,7 @@ function loadMessages(user){
     .then(function(response){
         
         return response.json();
+
     }).then(function(data){
     
         if(data.success){
@@ -417,73 +436,74 @@ function from_typing(){
 }
 
 function am_typing(){
-	
-	if(!other_typing){
-		
-		other_typing = true;
-		
-		console.log('The other client is typing');
-		
-		let points = 0;
-		
-		clock_other = setInterval(function(){
-		
-			other_time_typing++;
-			
-			if(other_time_typing >= limit_other){
-				
-				chatHeader.innerHTML = chosen.username;
-			
-				other_typing = false;
-				
-				other_time_typing = 0;
-				
-				limit_other = 3;
-				
-				clearInterval(clock_other);
-				
-			}else{
-			
-				console.log('The other client is waiting: '+other_time_typing);
-	
-				if(other_time_typing == 0){
-		
-					chatHeader.innerHTML = chosen.username+' está digitando';
-	
-				}else if(other_time_typing <= limit_other){
-		
-					if(points >= 3){
-						
-						chatHeader.innerHTML = chosen.username+' está digitando';
-						
-						points = 0;
-						
-					}else{
-						
-						let html = chosen.username+' está digitando';
-						
-						for(let i = 0; i <= points; i++){
-			
-							html += '.';
-						
-						}
-						
-						chatHeader.innerHTML = html;
-						
-						points++;
-						
-					}
-				
-				}
-		
-			}
-			
-		}, 1000);
-		
-	}else{
-	
-		limit_other++;
-		
-	}
-	
+    
+    if(chatHeader !== null){
+        if(!other_typing){
+            
+            other_typing = true;
+            
+            console.log('The other client is typing');
+            
+            let points = 0;
+            
+            clock_other = setInterval(function(){
+            
+                other_time_typing++;
+                
+                if(other_time_typing >= limit_other){
+                    
+                    chatHeader.innerHTML = chosen.username;
+                
+                    other_typing = false;
+                    
+                    other_time_typing = 0;
+                    
+                    limit_other = 3;
+                    
+                    clearInterval(clock_other);
+                    
+                }else{
+                
+                    console.log('The other client is waiting: '+other_time_typing);
+        
+                    if(other_time_typing == 0){
+            
+                        chatHeader.innerHTML = chosen.username+' está digitando';
+        
+                    }else if(other_time_typing <= limit_other){
+            
+                        if(points >= 3){
+                            
+                            chatHeader.innerHTML = chosen.username+' está digitando';
+                            
+                            points = 0;
+                            
+                        }else{
+                            
+                            let html = chosen.username+' está digitando';
+                            
+                            for(let i = 0; i <= points; i++){
+                
+                                html += '.';
+                            
+                            }
+                            
+                            chatHeader.innerHTML = html;
+                            
+                            points++;
+                            
+                        }
+                    
+                    }
+            
+                }
+                
+            }, 1000);
+            
+        }else{
+        
+            limit_other++;
+            
+        }
+    }	
 }
